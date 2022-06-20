@@ -27,4 +27,6 @@ public class DollarTest {
         assertEquals(new Franc(10), five.times(2));
         assertEquals(new Franc(15), five.times(3));
     }
+
+
 }
