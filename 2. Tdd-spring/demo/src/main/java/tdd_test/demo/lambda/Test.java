@@ -2,6 +2,8 @@ package tdd_test.demo.lambda;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Test {
@@ -35,10 +37,16 @@ public class Test {
     }
 
     public static void main(String[] args) {
-       // Arrays.stream(Company.values()).filter(c -> c.value.equals("삼성")).forEach(Company::print);
+        String s = new String("//;\n1;2;3");
+        Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(s);
+        if(matcher.find()){
+            String findMatches = matcher.group(1);
+            System.out.println(findMatches);
+            String[] split = matcher.group(2).split(findMatches);
+            Integer reduce = Arrays.stream(split).map(n -> Integer.parseInt(n)).reduce(0, Integer::sum);
+            System.out.println(reduce);
+        }
 
-        Test test = new Test();
-        test.company2("삼성");
     }
 
 }
