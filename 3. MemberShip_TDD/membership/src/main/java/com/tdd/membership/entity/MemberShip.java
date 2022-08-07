@@ -24,7 +24,7 @@ public class MemberShip {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private MemberShipType memberShipName;
+    private MemberShipType memberShipType;
 
     @Column(nullable = false)
     private String userId;

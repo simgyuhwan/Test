@@ -66,8 +66,8 @@ dependencies {
 
 ### 예시(맴버십 등록)
 
-1. 맴버십 등록 API 구현
-  처음은 맴버십 등록에 대한 테스트 코드를 작성했다. 
+#### 1. 맴버십 등록 API 구현
+  처음은 맴버십 등록에 대한 테스트 코드를 작성한다.
   ```java
     @Test
     public void 맴버십등록(){
@@ -137,23 +137,23 @@ dependencies {
 그러니 이 부분을 Enum 타입으로 바꿔주면 관리와 가독성면에서 더 좋을 듯 싶다. TDD 기반이니 먼저 테스트 코드에 Enum 타입으로 가정하고 작성한다.
 
 ```java
-final MemberShip memberShip = MemberShip.builder()
-        .userId("userId")
-        .memberShipName(MemberShipType.NAVER)
-        .point(10000)
-        .build();
+  final MemberShip memberShip = MemberShip.builder()
+          .userId("userId")
+          .memberShipName(MemberShipType.NAVER)
+          .point(10000)
+          .build();
 ```
 MemberShipType 이 없기 때문에 테스트는 실패한다. 이를 만들어주자. 
 
 ```java
-@RequiredArgsConstructor
-public enum MemberShipType {
-  NAVER("네이버"),
-  LINE("라인"),
-  KAKAO("카카오");
-
-  final private String companyName;
-}
+  @RequiredArgsConstructor
+  public enum MemberShipType {
+    NAVER("네이버"),
+    LINE("라인"),
+    KAKAO("카카오");
+  
+    final private String companyName;
+  }
 ```
 이제 이를 내부 필드로 가지는 MemberShip 과 Test 코드도 이에 맞게 변경한다. 
 ```java
@@ -167,6 +167,45 @@ final MemberShip memberShip = MemberShip.builder()
         .memberShipName(MemberShipType.NAVER)
         .point(10000)
         .build();
+
+assertThat(result.getMemberShipType()).isEqualTo(MemberShipType.NAVER);
 ```
 
 테스트는 성공한다.
+
+
+#### 2. 맴버십 등록 중복 확인
+
+만약 사용자가 맴버십을 등록한 뒤, 동일한 맴버십을 등록하면 이를 검사하여 **중복 등록을 하지 못하게 하는 로직**이 필요하다.
+맴버십이 등록됐는지 확인하기 위해 맴버십을 조회하는 테스트 코드를 작성하자.
+```java
+    @Test
+    public void 맴버십이존재하는지테스트(){
+        // given
+        final MemberShip memberShip = MemberShip.builder()
+                .userId("userId")
+                .memberShipType(MemberShipType.NAVER)
+                .point(10000)
+                .build();
+        // when
+        memberShopRepository.save(memberShip);
+        final MemberShip findMemberShip = memberShopRepository.findByUserIdAndMemberShipType("userId", MemberShipType.NAVER);
+        
+        // then
+        assertThat(findMemberShip).isNotNull();
+        assertThat(findMemberShip.getId()).isNotNull();
+        assertThat(findMemberShip.getUserId()).isEqualTo("userId");
+        assertThat(findMemberShip.getMemberShipType()).isEqualTo(MemberShipType.NAVER);
+        assertThat(findMemberShip.getPoint()).isEqualTo(10000);
+    }
+```
+당연히 repository 내에 **findByUserIdAndMemberShipType** 메서드가 없기 때문에 테스트는 실패한다. 
+repository 에 해당 메서드를 추가하자.
+
+```java
+  public interface MemberShopRepository extends JpaRepository<MemberShip, Long> {
+  
+      MemberShip findByUserIdAndMemberShipType(final String userId, final MemberShipType memberShipType);
+  }
+```
+다시 테스트를 실행해보면 **초록불**이 나오는 것을 볼 수 있다.
