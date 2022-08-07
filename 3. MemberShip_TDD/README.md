@@ -158,10 +158,14 @@ MemberShipType 이 없기 때문에 테스트는 실패한다. 이를 만들어�
   }
 ```
 이제 이를 내부 필드로 가지는 MemberShip 과 Test 코드도 이에 맞게 변경한다. 
+
+**MemberShip**
+
 ```java
 @Enumerated(EnumType.STRING)    
 private MemberShipType memberShipName;
 ```
+**Test**
 ```java
 final MemberShip memberShip = MemberShip.builder()
         .userId("userId")
