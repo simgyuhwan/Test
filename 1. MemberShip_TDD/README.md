@@ -219,3 +219,69 @@ repository 에 해당 메서드를 추가하자.
 ---
 
 ### 2. Service
+
+서비스 계층을 개발할 차례이다. 서비스 계층은 Repository 계층을 의존하기 때문에 이를 모킹하기 위해 MockitoExtension 에서 실행되도록 한다.
+먼저 **MembershipServiceTest** 를 만들자. 
+
+```java
+@ExtendWith(MockitoExtension.class)
+public class MembershipServiceTest {
+    
+}
+```
+
+그리고 테스트를 추가하는데. 가장 먼저 **_실패하는 테스트_** 를 추가한다. 실패하는 테스트가 뭐가 있을까? 맴버십을 추가했는데. 동일한 맴버십을 등록했을 때를 생각할 수 있다.
+
+```java
+@ExtendWith(MockitoExtension.class)
+public class MembershipServiceTest {
+    
+  // 임시용
+  private final String userId = 'userId';
+  private final MembershipType membershipType = MembershipType.NAVER;
+  private final Integer point = 10000;
+
+  // 1. 실패 하는 테스트
+  @Test
+  public void 맴버십등록_이미존재함() {
+    //given
+    doReturn(Membership.builder().build()).when(memberShipRepository).findByUserIdAndMemberShipType(userId, memberShipType);
+
+    //when
+    final MembershipException result = assertThrows(MembershipException.class, () -> target.addMembership(userId, memberShipType, point));
+
+    //then
+    assertThat(result.getErrorResult()).isEqualTo(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
+  }
+}
+```
+바로 컴파일 에러가 날 것이다. `MembershipException, target.addMembership, MembershipErrorResult` 모두 만들지 않았기 때문이다. 
+클래스를 만들기 전에 테스트 코드만 하나씩 살펴보자. 
+
+### given
+`doReturn(Membership.builder().build()).when(memberShipRepository).findByUserIdAndMemberShipType(userId, memberShipType);`: 
+바로 해석이 가능할 정도다. membershipRepository의 findByUserIdAndMemberShipType 메서드를 사용하면 일반 생성자를 사용한 Membership을 반환해달라는 의미다. 
+**이번 테스트에 사용할 Repository 메서드를 정의해 놓는 것**이다. 
+
+### when
+`final MembershipException result = assertThrows(MembershipException.class, () -> target.addMembership(userId, memberShipType, point));` :
+target 은 이 테스트에 타겟인 membershipService를 의미한다. membershipService의 addMembership 을 싱행할 때 MembershipException이 발생하고 그 값을 result 에 담는다.
+
+### then
+`assertThat(result.getErrorResult()).isEqualTo(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);`:
+에러 내부 필드 값이 'DUPLICATED_MEMBERSHIP_REGISTER' 가 맞는지 검증한다. 
+
+이제 컴파일 에러를 해결하기 위해 클래스를 생성하자. 
+
+```java
+@Getter
+@RequiredArgsConstructor
+public enum MembershipErrorResult {
+    DUPLICATED_MEMBERSHIP_REGISTER(HttpStatus.BAD_REQUEST, "Duplicated Membership Register Request"),
+    ;
+
+    private final HttpStatus httpStatus;
+    private final String message;
+}
+```
+
