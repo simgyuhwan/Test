@@ -17,14 +17,14 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity
 @NoArgsConstructor
-public class MemberShip {
+public class Membership {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    private MemberShipType memberShipType;
+    private MembershipType memberShipType;
 
     @Column(nullable = false)
     private String userId;
