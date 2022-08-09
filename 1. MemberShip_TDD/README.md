@@ -285,3 +285,103 @@ public enum MembershipErrorResult {
 }
 ```
 
+```java
+@Getter
+@RequiredArgsConstructor
+public class MembershipException extends RuntimeException {
+
+    private final MembershipErrorResult errorResult;
+
+}
+```
+```java
+@Service
+public class MembershipService {
+
+    public Membership addMembership(final String userId, final MembershipType membershipType, final Integer point) {
+        return null;
+    }
+}
+```
+
+**MembershipErrorResult** 클래스 내부에 httpStatus 와 message를 반환하는 이유는 **RestControllerAdvice**를 통해서 이를 반환해주기 위해서이다.
+RuntimeError와 이를 상속받는 클래스는 언체크 예외이다. 언체크 예외란 복구할 수 없는 에러를 의미한다. 
+_**트랜잭션에서 언체크 예외만 자동으로 롤백이 된다**_. 체크 예외는 롤백이 되지 않는다. (설정으로 가능)
+
+이제 다시 테스트를 돌려보면 실패하게 될 것이다. 왜냐하면 아직 예외를 던지지 않았기 때문이다. 
+에러를 해결하기 위해 membershipRepository 에서 가져오는 객체가 존재한다면 예외를 던지게 작성합니다. 
+
+```java
+@Service
+@RequiredArgsConstructor
+public class MembershipService {
+
+    private final MembershipRepository membershipRepository;
+
+    public Membership addMembership(final String userId, final MembershipType membershipType, final Integer point) {
+        final Membership result = membershipRepository.findByUserIdAndMembershipType(userId, membershipType);
+        if (result != null) {
+            throw new MembershipException(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
+        }
+
+        return null;
+    }
+}
+```
+
+다시 테스트를 돌려보면 중복 검증에 걸려서 예외를 던지고 테스트는 성공하게 됩니다. 이제 테스트를 성공하는 테스트를 작성해야 합니다. 맴버십 등록의 응답값으로는
+맴버십 id와 맴버십 타입을 반환해주어야 하므로 두 값이 잘 반환되는지를 통해 검증합니다.
+```java
+@Test
+public void 멤버십등록성공() {
+    // given
+    doReturn(null).when(membershipRepository).findByUserIdAndMembershipType(userId, membershipType);
+    doReturn(membership()).when(membershipRepository).save(any(Membership.class));
+ 
+    // when
+    final Membership result = target.addMembership(userId, membershipType, point);
+
+    // then
+    assertThat(result.getId()).isNotNull();
+    assertThat(result.getMembershipType()).isEqualTo(MembershipType.NAVER);
+
+    // verify
+    verify(membershipRepository, times(1)).findByUserIdAndMembershipType(userId, membershipType);
+    verify(membershipRepository, times(1)).save(any(Membership.class));
+}
+
+private Membership membership() {
+    return Membership.builder()
+            .id(-1L)
+            .userId(userId)
+            .point(point)
+            .membershipType(MembershipType.NAVER)
+            .build();
+}
+```
+테스트를 돌려보면 실패할 것입니다. 그 이유는 MembershipService에서 null 값을 반환하기 떄문이다. 이제 올바른 membership을 반환할 수 있도록 수정해봅니다. 
+```java
+@Service
+@RequiredArgsConstructor
+public class MembershipService {
+
+    private final MembershipRepository membershipRepository;
+
+    public Membership addMembership(final String userId, final MembershipType membershipType, final Integer point) {
+        final Membership result = membershipRepository.findByUserIdAndMembershipType(userId, membershipType);
+        if (result != null) {
+            throw new MembershipException(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
+        }
+
+        final Membership membership = Membership.builder()
+                .userId(userId)
+                .point(point)
+                .membershipType(membershipType)
+                .build();
+
+        return membershipRepository.save(membership);
+    }
+}
+```
+
+이제 테스트에 성공한 것을 볼 수 있습니다. 이제부터 **리팩토링**을 할 차례입니다. 
