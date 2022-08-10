@@ -1,5 +1,6 @@
 package com.tdd.membership.service;
 
+import com.tdd.membership.dto.MembershipResponse;
 import com.tdd.membership.entity.Membership;
 import com.tdd.membership.entity.MembershipType;
 import com.tdd.membership.error.MembershipErrorResult;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class MembershipService {
     private final MemberShipRepository memberShipRepository;
 
-    public Membership addMembership(final String userId, final MembershipType memberShipType, final Integer point) {
+    public MembershipResponse addMembership(final String userId, final MembershipType memberShipType, final Integer point) {
         // 유효성 검증(조회)
         Membership result = memberShipRepository.findByUserIdAndMemberShipType(userId, memberShipType);
         if(result != null){
@@ -22,10 +23,15 @@ public class MembershipService {
 
         final Membership membership = Membership.builder()
                 .userId(userId)
-                .memberShipType(memberShipType)
+                .membershipType(memberShipType)
                 .point(point)
                 .build();
 
-        return memberShipRepository.save(membership);
+        final Membership saveMembership = memberShipRepository.save(membership);
+
+        return MembershipResponse.builder()
+                .membershipType(saveMembership.getMembershipType())
+                .id(saveMembership.getId())
+                .build();
     }
 }

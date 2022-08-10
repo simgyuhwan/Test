@@ -384,4 +384,91 @@ public class MembershipService {
 }
 ```
 
-이제 테스트에 성공한 것을 볼 수 있습니다. 이제부터 **리팩토링**을 할 차례입니다. 
+이제 테스트에 성공한 것을 볼 수 있습니다. 이제부터 **리팩토링**을 할 차례입니다. 먼저 Service 계층에서 Controller로 전할 데이터는 Entitiy로 전달하는건 좋지 않습니다. 
+그렇기 때문에 반환값을 MembershipResponse 로 바꿔봅니다. 먼저 테스트 코드를 변경합니다. 
+```java
+    @Test
+    public void 맴버십등록성공() {
+        //given
+        doReturn(null).when(memberShipRepository).findByUserIdAndMemberShipType(userId, memberShipType);
+        doReturn(membership()).when(memberShipRepository).save(any(Membership.class));
+
+        //when DTO 변경
+        final MembershipResponse result = target.addMembership(userId, memberShipType, point);
+
+        //then
+        assertThat(result.getId()).isNotNull();
+        assertThat(result.getMemberShipType()).isEqualTo(MembershipType.NAVER);
+
+        //verify
+        verify(memberShipRepository, times(1)).findByUserIdAndMemberShipType(userId, memberShipType);
+        verify(memberShipRepository, times(1)).save(any(Membership.class));
+    }
+```
+
+빨간색 에러가 뜰텐데. MembershipResponse를 생성해줍니다. 
+
+```java
+@Getter
+@Builder
+@RequiredArgsConstructor
+public class MembershipResponse {
+
+    private final Long id;
+    private final MembershipType membershipType;
+}
+```
+그리고 MembershipService의 addMembership 의 반환값을 MembershipResponse로 변경해줍니다. 
+```java
+
+@Service
+@RequiredArgsConstructor
+public class MembershipService {
+    private final MemberShipRepository memberShipRepository;
+
+    public MembershipResponse addMembership(final String userId, final MembershipType memberShipType, final Integer point) {
+        // 유효성 검증(조회)
+        Membership result = memberShipRepository.findByUserIdAndMemberShipType(userId, memberShipType);
+        if(result != null){
+            throw new MembershipException(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
+        }
+
+        final Membership membership = Membership.builder()
+                .userId(userId)
+                .memberShipType(memberShipType)
+                .point(point)
+                .build();
+
+        Membership saveMembership = memberShipRepository.save(membership);
+
+        return null;
+    }
+}
+```
+
+이제 MembershipService에서 올바른 반환값을 반환하도록 변경해줍니다. 
+```java
+    public MembershipResponse addMembership(final String userId, final MembershipType memberShipType, final Integer point) {
+        // 유효성 검증(조회)
+        Membership result = memberShipRepository.findByUserIdAndMemberShipType(userId, memberShipType);
+        if(result != null){
+            throw new MembershipException(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
+        }
+
+        final Membership membership = Membership.builder()
+                .userId(userId)
+                .membershipType(memberShipType)
+                .point(point)
+                .build();
+
+        final Membership saveMembership = memberShipRepository.save(membership);
+
+        return MembershipResponse.builder()
+                .membershipType(saveMembership.getMembershipType())
+                .id(saveMembership.getId())
+                .build();
+    }
+```
+
+이로써 Service 계층의 모든 테스트가 끝납니다. 
+

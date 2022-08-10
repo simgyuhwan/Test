@@ -19,7 +19,7 @@ public class MemberShipRepositoryTest {
         // given
         final Membership memberShip = Membership.builder()
                 .userId("userId")
-                .memberShipType(MembershipType.NAVER)
+                .membershipType(MembershipType.NAVER)
                 .point(10000)
                 .build();
 
@@ -30,7 +30,7 @@ public class MemberShipRepositoryTest {
         assertThat(result.getId()).isNotNull();
         assertThat(result.getUserId()).isEqualTo("userId");
         assertThat(result.getPoint()).isEqualTo(10000);
-        assertThat(result.getMemberShipType()).isEqualTo(MembershipType.NAVER);
+        assertThat(result.getMembershipType()).isEqualTo(MembershipType.NAVER);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class MemberShipRepositoryTest {
         // given
         final Membership memberShip = Membership.builder()
                 .userId("userId")
-                .memberShipType(MembershipType.NAVER)
+                .membershipType(MembershipType.NAVER)
                 .point(10000)
                 .build();
         // when
@@ -49,7 +49,7 @@ public class MemberShipRepositoryTest {
         assertThat(findMemberShip).isNotNull();
         assertThat(findMemberShip.getId()).isNotNull();
         assertThat(findMemberShip.getUserId()).isEqualTo("userId");
-        assertThat(findMemberShip.getMemberShipType()).isEqualTo(MembershipType.NAVER);
+        assertThat(findMemberShip.getMembershipType()).isEqualTo(MembershipType.NAVER);
         assertThat(findMemberShip.getPoint()).isEqualTo(10000);
     }
 }

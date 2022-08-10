@@ -1,5 +1,6 @@
 package com.tdd.membership.service;
 
+import com.tdd.membership.dto.MembershipResponse;
 import com.tdd.membership.entity.Membership;
 import com.tdd.membership.entity.MembershipType;
 import com.tdd.membership.error.MembershipErrorResult;
@@ -49,11 +50,11 @@ public class MembershipServiceTest {
         doReturn(membership()).when(memberShipRepository).save(any(Membership.class));
 
         //when
-        final Membership result = target.addMembership(userId, memberShipType, point);
+        final MembershipResponse result = target.addMembership(userId, memberShipType, point);
 
         //then
         assertThat(result.getId()).isNotNull();
-        assertThat(result.getMemberShipType()).isEqualTo(MembershipType.NAVER);
+        assertThat(result.getMembershipType()).isEqualTo(MembershipType.NAVER);
 
         //verify
         verify(memberShipRepository, times(1)).findByUserIdAndMemberShipType(userId, memberShipType);
@@ -65,7 +66,7 @@ public class MembershipServiceTest {
                 .id(-1L)
                 .userId(userId)
                 .point(point)
-                .memberShipType(MembershipType.NAVER)
+                .membershipType(MembershipType.NAVER)
                 .build();
     }
 
