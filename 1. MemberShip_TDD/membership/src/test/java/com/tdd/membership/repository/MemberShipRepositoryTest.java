@@ -2,6 +2,7 @@ package com.tdd.membership.repository;
 
 import com.tdd.membership.entity.Membership;
 import com.tdd.membership.entity.MembershipType;
+import org.hibernate.boot.TempTableDdlTransactionHandling;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -89,6 +90,23 @@ public class MemberShipRepositoryTest {
 
         //then
         assertThat(result.size()).isEqualTo(2);
+    }
+
+    @Test
+    public void 맴버십추가후삭제() {
+        //given
+        final Membership membership = Membership.builder()
+                .userId("userId")
+                .membershipType(MembershipType.NAVER)
+                .point(10000)
+                .build();
+
+        final Membership saveMembership = memberShipRepository.save(membership);
+
+        //when
+        memberShipRepository.deleteById(saveMembership.getId());
+        //then
+
     }
 
 

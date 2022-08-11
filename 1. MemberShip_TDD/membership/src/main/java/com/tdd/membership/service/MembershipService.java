@@ -53,6 +53,15 @@ public class MembershipService {
                 .collect(Collectors.toList());
     }
 
+    public void removeMembership(final Long membershipId, final String userId) {
+        Optional<Membership> optionalMembership = memberShipRepository.findById(membershipId);
+        Membership membership = optionalMembership.orElseThrow(() -> new MembershipException(MembershipErrorResult.MEMBERSHIP_NOT_FOUND));
+        if( !membership.getUserId().equals(userId) ) {
+            throw new MembershipException(MembershipErrorResult.NOT_MEMBERSHIP_OWNER);
+        }
+        memberShipRepository.deleteById(membershipId);
+    }
+
     public MembershipDetailResponse getMembership(final Long membershipId, final String userId) {
         Optional<Membership> optionalMembership = memberShipRepository.findById(membershipId);
         Membership membership = optionalMembership.orElseThrow(() -> new MembershipException(MembershipErrorResult.MEMBERSHIP_NOT_FOUND));

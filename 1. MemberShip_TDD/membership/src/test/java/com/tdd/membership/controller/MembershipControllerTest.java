@@ -231,6 +231,31 @@ public class MembershipControllerTest {
         result.andExpect(status().isOk());
     }
 
+    @Test
+    public void 맴버십삭제실패_사용자식별값이헤더에없음() throws Exception {
+        //given
+        final String url = "/api/v1/memberships/-1";
+
+        //when
+        ResultActions result = mockMvc.perform(delete(url));
+
+        //then
+        result.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void 맴버십삭제성공() throws Exception {
+        //given
+        final String url = "/api/v1/memberships/-1";
+
+        //when
+        ResultActions result = mockMvc.perform(delete(url)
+                .header(USER_ID_HEADER, "12345"));
+
+        //then
+        result.andExpect(status().isNoContent());
+    }
+
 
     private static Stream<Arguments> invalidMembershipAddParameter() {
         return Stream.of(
