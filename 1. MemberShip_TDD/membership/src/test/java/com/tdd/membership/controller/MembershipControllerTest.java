@@ -256,6 +256,28 @@ public class MembershipControllerTest {
         result.andExpect(status().isNoContent());
     }
 
+    @Test
+    public void 맴버십적립실패_사용자식별값이헤더에없음() throws Exception {
+        //given
+        final String url = "/api/v1/memberships/-1/accumulate";
+
+        //when
+        ResultActions result = mockMvc.perform(post(url)
+                .content(gson.toJson(membershipRequest(1000)))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        //then
+        result.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void 맴버십적립실패_포인트가음수() throws Exception {
+        //given
+
+        //when
+
+        //then
+    }
 
     private static Stream<Arguments> invalidMembershipAddParameter() {
         return Stream.of(

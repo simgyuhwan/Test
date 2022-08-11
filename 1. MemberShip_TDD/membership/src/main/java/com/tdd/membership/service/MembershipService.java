@@ -9,6 +9,7 @@ import com.tdd.membership.error.MembershipException;
 import com.tdd.membership.repository.MemberShipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MembershipService {
     private final MemberShipRepository memberShipRepository;
+    private final PointService ratePointService;
 
     public MembershipResponse addMembership(final String userId, final MembershipType memberShipType, final Integer point) {
         // 유효성 검증(조회)
@@ -75,5 +77,18 @@ public class MembershipService {
                 .point(membership.getPoint())
                 .createdAt(membership.getCreatedAt())
                 .build();
+    }
+
+    @Transactional
+    public void accumulateMembershipPoint(final Long membershipId, final String userId, final int amount) {
+        Optional<Membership> optionalMembership = memberShipRepository.findById(membershipId);
+        Membership membership = optionalMembership.orElseThrow(() -> new MembershipException(MembershipErrorResult.MEMBERSHIP_NOT_FOUND));
+        if( !membership.getUserId().equals(userId) ) {
+            throw new MembershipException(MembershipErrorResult.NOT_MEMBERSHIP_OWNER);
+        }
+
+        final int additionalAmount = ratePointService.calculateAmount(amount);
+
+        membership.setPoint(additionalAmount + membership.getPoint());
     }
  }
