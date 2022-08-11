@@ -2,6 +2,7 @@ package com.tdd.membership.controller;
 
 import com.google.gson.Gson;
 import com.tdd.membership.advice.GlobalExceptionHandler;
+import com.tdd.membership.dto.MembershipDetailResponse;
 import com.tdd.membership.dto.MembershipRequest;
 import com.tdd.membership.dto.MembershipResponse;
 import com.tdd.membership.entity.MembershipType;
@@ -22,15 +23,13 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static com.tdd.membership.controller.MembershipConstants.USER_ID_HEADER;
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doThrow;
@@ -44,7 +43,7 @@ public class MembershipControllerTest {
     private MembershipController target;
     private MockMvc mockMvc;
     private Gson gson;
-
+    private final String url = "/api/v1/memberships";
     @Mock
     private MembershipService membershipService;
 
@@ -59,7 +58,6 @@ public class MembershipControllerTest {
     @MethodSource("invalidMembershipAddParameter")
     public void 맴버십등록실패_잘못된파라미터(final Integer point, final MembershipType membershipType) throws Exception {
         //given
-        final String url = "/api/v1/memberships";
 
         //when
         ResultActions result = mockMvc.perform(
@@ -76,7 +74,6 @@ public class MembershipControllerTest {
     @Test
     public void 맴버십등록실패_사용자식별값이헤더에없음() throws Exception {
         //given
-        final String url = "/api/v1/memberships";
 
         //when
         final ResultActions resultActions = mockMvc.perform(post(url)
@@ -90,7 +87,6 @@ public class MembershipControllerTest {
     @Test
     public void 맴버십등록실패_포인트가음수() throws Exception {
         //given
-        final String url = "/api/v1/memberships";
 
         //when
         final ResultActions result = mockMvc.perform(
@@ -107,7 +103,6 @@ public class MembershipControllerTest {
     @Test
     public void 맴버십등록실패_맴버십종류가null() throws Exception {
         //given
-        final String url = "/api/v1/memberships";
 
         //when
         ResultActions result = mockMvc.perform(
@@ -143,7 +138,6 @@ public class MembershipControllerTest {
     @Test
     public void 맴버십등록() throws Exception {
         //given
-        final String url = "/api/v1/memberships";
         final MembershipResponse membershipResponse = MembershipResponse.builder()
                 .id(-1L)
                 .membershipType(MembershipType.NAVER).build();
@@ -166,6 +160,77 @@ public class MembershipControllerTest {
         assertThat(response.getMembershipType()).isEqualTo(MembershipType.NAVER);
         assertThat(response.getId()).isNotNull();
     }
+
+    @Test
+    public void 맴버십목록조희실패_사용자식별값이헤더에없음() throws Exception {
+        //given
+
+        //when
+        final ResultActions result = mockMvc.perform(get(url));
+
+        //then
+        result.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void 맴버십목록조회성공() throws Exception {
+        //given
+        given(membershipService.getMembershipList("12345")).willReturn(Arrays.asList(
+                MembershipDetailResponse.builder().build(),
+                MembershipDetailResponse.builder().build(),
+                MembershipDetailResponse.builder().build()
+        ));
+
+        //when
+        ResultActions result = mockMvc.perform(get(url)
+                .header(USER_ID_HEADER, "12345"));
+
+        //then
+        result.andExpect(status().isOk());
+    }
+
+    @Test
+    public void 맴버십상세조회실패_사용자식별값이헤더에없음() throws Exception {
+        //given
+
+        //when
+        final ResultActions result = mockMvc.perform(get(url));
+
+        //then
+        result.andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void 맴버십상세조회실패_맴버십이존재하지않음() throws Exception {
+        //given
+        final String url = "/api/v1/memberships/-1";
+        given(membershipService.getMembership(-1L, "12345"))
+                .willThrow(new MembershipException(MembershipErrorResult.MEMBERSHIP_NOT_FOUND));
+
+        //when
+        final ResultActions resultActions = mockMvc.perform(get(url)
+                .header(USER_ID_HEADER, "12345"));
+
+        //then
+        resultActions.andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void 맴버십상세조회성공() throws Exception {
+        //given
+        final String url = "/api/v1/memberships/-1";
+        given(membershipService.getMembership(-1L, "12345"))
+                .willReturn(MembershipDetailResponse.builder().build());
+
+        //when
+        ResultActions result = mockMvc.perform(get(url)
+                .header(USER_ID_HEADER, "12345")
+                .param("membershipType", MembershipType.NAVER.name()));
+
+        //then
+        result.andExpect(status().isOk());
+    }
+
 
     private static Stream<Arguments> invalidMembershipAddParameter() {
         return Stream.of(

@@ -6,13 +6,15 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 public class MemberShipRepositoryTest {
 
     @Autowired
-    private MemberShipRepository memberShopRepository;
+    private MemberShipRepository memberShipRepository;
 
     @Test
     public void 맴버십등록(){
@@ -24,7 +26,7 @@ public class MemberShipRepositoryTest {
                 .build();
 
         // when
-        final Membership result = memberShopRepository.save(memberShip);
+        final Membership result = memberShipRepository.save(memberShip);
 
         // then
         assertThat(result.getId()).isNotNull();
@@ -42,8 +44,8 @@ public class MemberShipRepositoryTest {
                 .point(10000)
                 .build();
         // when
-        memberShopRepository.save(memberShip);
-        final Membership findMemberShip = memberShopRepository.findByUserIdAndMemberShipType("userId", MembershipType.NAVER);
+        memberShipRepository.save(memberShip);
+        final Membership findMemberShip = memberShipRepository.findByUserIdAndMembershipType("userId", MembershipType.NAVER);
 
         // then
         assertThat(findMemberShip).isNotNull();
@@ -52,4 +54,42 @@ public class MemberShipRepositoryTest {
         assertThat(findMemberShip.getMembershipType()).isEqualTo(MembershipType.NAVER);
         assertThat(findMemberShip.getPoint()).isEqualTo(10000);
     }
+
+    @Test
+    public void 맴버십조회_사이즈가0() {
+        //given
+
+        //when
+        List<Membership> result = memberShipRepository.findAllByUserId("userId");
+
+        //then
+        assertThat(result.size()).isEqualTo(0);
+    }
+
+    @Test
+    public void 맴버십조회_사이즈가2() {
+        //given
+        final Membership naverMembership = Membership.builder()
+                .userId("userId")
+                .membershipType(MembershipType.NAVER)
+                .point(10000)
+                .build();
+
+        Membership kakaoMembership = Membership.builder()
+                .userId("userId")
+                .membershipType(MembershipType.KAKAO)
+                .point(10000)
+                .build();
+
+        memberShipRepository.save(naverMembership);
+        memberShipRepository.save(kakaoMembership);
+
+        //when
+        List<Membership> result = memberShipRepository.findAllByUserId("userId");
+
+        //then
+        assertThat(result.size()).isEqualTo(2);
+    }
+
+
 }
