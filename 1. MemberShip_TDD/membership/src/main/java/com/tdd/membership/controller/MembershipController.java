@@ -25,8 +25,8 @@ public class MembershipController {
             @RequestBody @Valid final MembershipRequest membershipRequest
             ) {
 
-        membershipService.addMembership(userId, membershipRequest.getMembershipType(), membershipRequest.getPoint());
+        final MembershipResponse membershipResponse = membershipService.addMembership(userId, membershipRequest.getMembershipType(), membershipRequest.getPoint());
 
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(membershipResponse);
     }
 }
