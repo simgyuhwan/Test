@@ -472,3 +472,4 @@ public class MembershipService {
 
 이로써 Service 계층의 모든 테스트가 끝납니다. 
 
+----------
