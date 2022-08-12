@@ -28,6 +28,8 @@ public class MembershipService {
             throw new MembershipException(MembershipErrorResult.DUPLICATED_MEMBERSHIP_REGISTER);
         }
 
+        validatePoint(point);
+
         final Membership membership = Membership.builder()
                 .userId(userId)
                 .membershipType(memberShipType)
@@ -87,8 +89,15 @@ public class MembershipService {
             throw new MembershipException(MembershipErrorResult.NOT_MEMBERSHIP_OWNER);
         }
 
+        validatePoint(amount);
         final int additionalAmount = ratePointService.calculateAmount(amount);
 
         membership.setPoint(additionalAmount + membership.getPoint());
     }
- }
+
+    private void validatePoint(int amount) {
+        if(!ratePointService.isAccumulatedPoint(amount)){
+            throw new MembershipException(MembershipErrorResult.INVALID_POINT_VALUE);
+        }
+    }
+}
