@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod
+    active: dev
 
 ---
 
@@ -19,6 +19,7 @@ spring:
   config:
     activate:
       on-profile: dev
+
 
 ---
 spring:
@@ -54,3 +55,7 @@ logging:
   config:
     activate:
       on-profile: prod
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
