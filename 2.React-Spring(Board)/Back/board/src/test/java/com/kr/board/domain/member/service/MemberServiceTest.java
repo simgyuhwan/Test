@@ -55,4 +55,6 @@ public class MemberServiceTest {
         assertThat(result.getMemberErrorResult(),is(equalTo(MemberErrorResult.DUPLICATED_MEMBER_REGISTER)));
     }
 
+
+
 }
