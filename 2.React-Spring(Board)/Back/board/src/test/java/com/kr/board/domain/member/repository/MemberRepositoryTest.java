@@ -86,7 +86,6 @@ public class MemberRepositoryTest {
         assertThat(result, is(false));
     }
 
-
     private Member createMember() {
         return Member.builder()
                 .email(email)
