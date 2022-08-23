@@ -1,7 +1,7 @@
 package com.kr.board.domain.member.repository;
 
 import com.kr.board.domain.member.entity.Member;
-import org.hamcrest.MatcherAssert;
+import com.kr.board.infra.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

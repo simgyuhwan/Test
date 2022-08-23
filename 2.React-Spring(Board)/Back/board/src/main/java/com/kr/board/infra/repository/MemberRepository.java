@@ -1,4 +1,4 @@
-package com.kr.board.domain.member.repository;
+package com.kr.board.infra.repository;
 
 import com.kr.board.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;

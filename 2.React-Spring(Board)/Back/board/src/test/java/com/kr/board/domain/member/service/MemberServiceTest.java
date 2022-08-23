@@ -1,20 +1,16 @@
 package com.kr.board.domain.member.service;
 
 import com.kr.board.domain.member.dto.MemberRequestDTO;
-import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
-import com.kr.board.domain.member.repository.MemberRepository;
+import com.kr.board.infra.repository.MemberRepository;
 import com.kr.board.domain.member.serivce.MemberService;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;

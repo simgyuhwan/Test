@@ -1,4 +1,4 @@
-package com.kr.board.domain.member.mapper;
+package com.kr.board.domain.common.mapper;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.MappingTarget;
@@ -15,6 +15,4 @@ public interface GenericMapper <D, E>{
 
     List<E> toEntity(List<D> d);
 
-    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    void updateFromDto(D dto, @MappingTarget E entity);
 }
