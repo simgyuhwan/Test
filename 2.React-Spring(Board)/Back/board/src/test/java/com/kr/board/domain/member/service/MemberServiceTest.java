@@ -60,6 +60,8 @@ public class MemberServiceTest {
 
         //then
         assertThat(saveMember.getNickname(), is(equalTo(member.getNickname())));
+
+        // verify
         verify(memberRepository, times(1)).existsByEmailOrNickname(email,nickname);
         verify(memberRepository, times(1)).save(ArgumentMatchers.any(Member.class));
     }
@@ -87,6 +89,5 @@ public class MemberServiceTest {
                 .password(password)
                 .build();
     }
-
 
 }
