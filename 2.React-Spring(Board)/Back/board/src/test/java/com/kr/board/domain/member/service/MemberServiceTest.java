@@ -19,8 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.hamcrest.Matchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
@@ -61,6 +60,8 @@ public class MemberServiceTest {
 
         //then
         assertThat(saveMember.getNickname(), is(equalTo(member.getNickname())));
+        verify(memberRepository, times(1)).existsByEmailOrNickname(email,nickname);
+        verify(memberRepository, times(1)).save(ArgumentMatchers.any(Member.class));
     }
 
     private Member createMember(String email, String nickname, String password){
