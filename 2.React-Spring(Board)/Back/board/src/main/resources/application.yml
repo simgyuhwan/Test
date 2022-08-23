@@ -6,7 +6,7 @@ spring:
 
 spring:
   datasource:
-    url: jdbc:h2:mem:testdb;
+    url: jdbc:h2:tcp://localhost/~/test;
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -17,6 +17,7 @@ spring:
       ddl-auto: create-drop
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     generate-ddl: true
 
@@ -29,7 +30,10 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
-
+        type:
+          descriptor:
+            sql: TRACE
+        cache: DEBUG
 ---
 
 spring:
@@ -39,11 +43,14 @@ spring:
     username: root
     password: Password!
 
+  config:
+    activate:
+      on-profile: prod
 
   jpa:
     defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -61,10 +68,6 @@ logging:
     org:
       hibernate:
         SQL: DEBUG
-
-  config:
-    activate:
-      on-profile: prod
 
   flyway:
     enabled: true
