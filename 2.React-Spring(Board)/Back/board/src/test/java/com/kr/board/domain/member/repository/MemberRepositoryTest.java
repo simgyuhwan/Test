@@ -13,6 +13,10 @@ import static org.hamcrest.Matchers.*;
 @DataJpaTest
 public class MemberRepositoryTest {
 
+    private String email = "test@email.com";
+    private String nickname = "test";
+    private String password = "password";
+
     @Autowired
     private MemberRepository memberRepository;
 
@@ -25,8 +29,8 @@ public class MemberRepositoryTest {
 
         // then
         assertThat(result.getId(), notNullValue());
-        assertThat(result.getNickname(), is(equalTo("test")));
-        assertThat(result.getEmail(), is(equalTo("test@test.com")));
+        assertThat(result.getNickname(), is(equalTo(nickname)));
+        assertThat(result.getEmail(), is(equalTo(email)));
     }
 
     @Test
@@ -43,13 +47,51 @@ public class MemberRepositoryTest {
         assertThat(result.getEmail(), is(equalTo(saveMember.getEmail())));
     }
 
+    @Test
+    @DisplayName("이메일 중복 확인")
+    void checkEmailDuplicationTest(){
+        //given
+        Member saveMember = memberRepository.save(createMember());
+
+        //when
+        boolean result = memberRepository.existsByEmailOrNickname(email, "no nickname");
+
+        //then
+        assertThat(result, is(true));
+    }
+
+    @Test
+    @DisplayName("닉네임 중복 확인")
+    void checkNicknameDuplicationTest(){
+        //given
+        Member saveMember = memberRepository.save(createMember());
+
+        //when
+        boolean result = memberRepository.existsByEmailOrNickname("no email", nickname);
+
+        //then
+        assertThat(result, is(true));
+    }
+
+    @Test
+    @DisplayName("닉네임 또는 이메일 중복 없음")
+    void noNicknameOrEmailDuplicationTest() {
+        //given
+        Member saveMember = memberRepository.save(createMember());
+
+        //when
+        boolean result = memberRepository.existsByEmailOrNickname("no email", "no nickname");
+
+        //then
+        assertThat(result, is(false));
+    }
 
 
     private Member createMember() {
         return Member.builder()
-                .email("test@test.com")
-                .nickname("test")
-                .password("password")
+                .email(email)
+                .nickname(nickname)
+                .password(password)
                 .build();
     }
 
