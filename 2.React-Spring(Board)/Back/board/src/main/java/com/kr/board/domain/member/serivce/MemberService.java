@@ -1,19 +1,27 @@
 package com.kr.board.domain.member.serivce;
 
 import com.kr.board.domain.member.dto.MemberRequestDTO;
+import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
+import com.kr.board.domain.member.mapper.MemberRequestMapper;
 import com.kr.board.infra.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    public void addMember(MemberRequestDTO dto) {
+    private MemberRequestMapper mapper = Mappers.getMapper(MemberRequestMapper.class);
+
+    public Member addMember(MemberRequestDTO dto) {
         DuplicateVerificationOfEmailOrNickname(dto);
+        return memberRepository.save(mapper.toEntity(dto));
     }
 
     private void DuplicateVerificationOfEmailOrNickname(MemberRequestDTO dto) {
