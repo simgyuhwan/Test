@@ -49,6 +49,9 @@ dependencies {
 	implementation group: 'com.querydsl', name: 'querydsl-jpa', version: '5.0.0'
 	implementation group: 'com.querydsl', name: 'querydsl-apt', version: '5.0.0'
 
+	// gson
+	implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
+
 
 }
 
