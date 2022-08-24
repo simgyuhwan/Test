@@ -1,17 +1,17 @@
 package com.kr.board.domain.member.mapper;
 
-import com.kr.board.domain.member.dto.MemberRequestDTO;
+import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.MatcherAssert.*;
-import static org.hamcrest.Matchers.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MemberRequestMapperTest {
 
@@ -25,7 +25,7 @@ class MemberRequestMapperTest {
                 .build();
 
         // when
-        MemberRequestDTO dto = MemberRequestMapper.INSTANCE.toDto(member);
+        MemberRequest dto = MemberRequestMapper.INSTANCE.toDto(member);
 
         // then
         assertThat(dto.getNickname(), is(equalTo(member.getNickname())));
@@ -36,7 +36,7 @@ class MemberRequestMapperTest {
     @DisplayName("Dto To Entity 테스트")
     void mapperDtoToEntityTest() {
         // given
-        MemberRequestDTO dto = MemberRequestDTO.builder()
+        MemberRequest dto = MemberRequest.builder()
                 .nickname("test")
                 .email("test@test.com")
                 .build();
@@ -63,7 +63,7 @@ class MemberRequestMapperTest {
         }
 
         //when
-        List<MemberRequestDTO> memberRequestDTOS = MemberRequestMapper.INSTANCE.toDto(members);
+        List<MemberRequest> memberRequestDTOS = MemberRequestMapper.INSTANCE.toDto(members);
 
         //then
         assertThat(memberRequestDTOS.size(), is(equalTo(members.size())));
@@ -75,9 +75,9 @@ class MemberRequestMapperTest {
     @DisplayName("Dtos To Entities 테스트")
     void mapperDtosToEntitiesTest() {
         //given
-        List<MemberRequestDTO> dtos = new ArrayList<>();
+        List<MemberRequest> dtos = new ArrayList<>();
         for(int i = 0; i < 3; i++) {
-            dtos.add(MemberRequestDTO.builder()
+            dtos.add(MemberRequest.builder()
                     .nickname(i + "nickname")
                     .email(i + "email@Test.com")
                     .password("password")

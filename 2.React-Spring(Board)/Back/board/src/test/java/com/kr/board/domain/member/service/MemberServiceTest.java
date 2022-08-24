@@ -1,6 +1,6 @@
 package com.kr.board.domain.member.service;
 
-import com.kr.board.domain.member.dto.MemberRequestDTO;
+import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
@@ -82,8 +82,8 @@ public class MemberServiceTest {
                 .build();
     }
 
-    private MemberRequestDTO createMemberRequestDTO(){
-        return MemberRequestDTO.builder()
+    private MemberRequest createMemberRequestDTO(){
+        return MemberRequest.builder()
                 .email(email)
                 .nickname(nickname)
                 .password(password)
