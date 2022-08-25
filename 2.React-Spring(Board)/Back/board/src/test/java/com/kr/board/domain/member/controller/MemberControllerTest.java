@@ -3,6 +3,7 @@ package com.kr.board.domain.member.controller;
 import com.google.gson.Gson;
 import com.kr.board.domain.advice.MemberExceptionAdvice;
 import com.kr.board.domain.member.dto.MemberRequest;
+import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.member.serivce.MemberService;
@@ -10,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
 import static com.kr.board.domain.member.error.MemberErrorResult.INCORRECT_REGISTRATION_INFORMATION;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -141,7 +144,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("패스워드 공백 예외 발생")
+    @DisplayName("비밀번호 공백 예외 발생")
     void passwordNullException() throws Exception {
         //given
         MemberRequest request = MemberRequest.builder()
@@ -159,7 +162,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("패스워드 최소 길이 예외 발생")
+    @DisplayName("비밀번호 최소 길이 예외 발생")
     void passwordMinimumLengthExceptionTest() throws Exception {
         //given
         MemberRequest request = MemberRequest.builder()
@@ -177,7 +180,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("패스워드 최소 하나의 문자 미포함 예외 발생")
+    @DisplayName("비밀번호 최소 하나의 문자 미포함 예외 발생")
     void includeAtLeastOneCharacterTest() throws Exception{
         //given
         MemberRequest request = MemberRequest.builder()
@@ -195,7 +198,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("패스워드 최소 하나의 숫자 미포함 예외 발생")
+    @DisplayName("비밀번호 최소 하나의 숫자 미포함 예외 발생")
     void includeAtLeastOneNumberTest() throws Exception{
         //given
         MemberRequest request = MemberRequest.builder()
@@ -213,7 +216,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    @DisplayName("패스워드 최소 하나의 특수문자 미포함 예외 발생")
+    @DisplayName("비밀번호 최소 하나의 특수 문자 미포함 예외 발생")
     void includeAtLeastOneSpecialCharactersTest() throws Exception {
         //given
         MemberRequest request = MemberRequest.builder()
@@ -226,8 +229,19 @@ public class MemberControllerTest {
                         .content(gson.toJson(request))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
-                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                        .value(INCORRECT_REGISTRATION_INFORMATION
+                                .getMessage()))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("회원가입 성공")
+    void signUpSuccessTest() throws Exception{
+        //when, then
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(createRequestDTO()))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 
     private MemberRequest createRequestDTO(){
@@ -235,6 +249,15 @@ public class MemberControllerTest {
                 .nickname(nickname)
                 .email(email)
                 .password(password)
+                .build();
+    }
+
+    private Member createMember(){
+        return Member.builder()
+                .id(1L)
+                .nickname(nickname)
+                .password(password)
+                .email(email)
                 .build();
     }
 

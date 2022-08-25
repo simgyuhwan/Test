@@ -21,9 +21,9 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private MemberRequestMapper mapper = Mappers.getMapper(MemberRequestMapper.class);
 
-    public Member addMember(MemberRequest dto) {
+    public void addMember(MemberRequest dto) {
         DuplicateVerificationOfEmailOrNickname(dto);
-        return memberRepository.save(mapper.toEntity(dto));
+        memberRepository.save(mapper.toEntity(dto));
     }
 
     private void DuplicateVerificationOfEmailOrNickname(MemberRequest dto) {

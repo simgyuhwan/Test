@@ -52,18 +52,19 @@ public class MemberServiceTest {
     void successfulMembershipRegistrationTest() {
         //given
         Member member = createMember();
-        given(memberRepository.existsByEmailOrNickname(email, nickname)).willReturn(false);
-        when(memberRepository.save(ArgumentMatchers.any(Member.class))).thenReturn(member);
+        given(memberRepository.existsByEmailOrNickname(email, nickname))
+                .willReturn(false);
+        when(memberRepository.save(ArgumentMatchers.any(Member.class)))
+                .thenReturn(member);
 
         //when
-        Member saveMember = target.addMember(createMemberRequestDTO());
-
-        //then
-        assertThat(saveMember.getNickname(), is(equalTo(member.getNickname())));
+        target.addMember(createMemberRequestDTO());
 
         // verify
-        verify(memberRepository, times(1)).existsByEmailOrNickname(email,nickname);
-        verify(memberRepository, times(1)).save(ArgumentMatchers.any(Member.class));
+        verify(memberRepository, times(1))
+                .existsByEmailOrNickname(email,nickname);
+        verify(memberRepository, times(1))
+                .save(ArgumentMatchers.any(Member.class));
     }
 
     private Member createMember(String email, String nickname, String password){
