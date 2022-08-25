@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum MemberErrorResult{
     DUPLICATED_MEMBER_REGISTER(HttpStatus.BAD_REQUEST, "Duplicate Members Information."),
     INCORRECT_REGISTRATION_INFORMATION(HttpStatus.BAD_REQUEST, "Incorrect registration information"),
+    PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "Passwords do not match."),
     ;
 
     private final HttpStatus httpStatus;
