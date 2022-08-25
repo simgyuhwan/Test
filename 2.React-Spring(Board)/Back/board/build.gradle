@@ -52,6 +52,8 @@ dependencies {
 	// gson
 	implementation group: 'com.google.code.gson', name: 'gson', version: '2.9.0'
 
+	// validation
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.0'
 
 }
 
