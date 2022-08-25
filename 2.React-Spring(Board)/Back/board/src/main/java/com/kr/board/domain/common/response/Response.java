@@ -3,9 +3,6 @@ package com.kr.board.domain.common.response;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -22,7 +19,11 @@ public class Response {
         return new Response(true, new Success<T>(data));
     }
 
-    public static <T> Response failure(String message) {
+    public static Response failure(String message) {
         return new Response(false, new Failure(message));
+    }
+
+    public static <T> Response failure(String message, T data){
+        return new Response(false, new Failure<T>(message,data));
     }
 }
