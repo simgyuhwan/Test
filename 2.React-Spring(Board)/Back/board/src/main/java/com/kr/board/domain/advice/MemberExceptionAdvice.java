@@ -6,6 +6,7 @@ import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,11 +19,11 @@ import static com.kr.board.domain.member.error.MemberErrorResult.INCORRECT_REGIS
 public class MemberExceptionAdvice {
 
     @ExceptionHandler(MemberException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Response MemberException(MemberException e) {
+    public ResponseEntity<Response> MemberException(MemberException e) {
         MemberErrorResult memberError = e.getMemberErrorResult();
-        log.info("error : {} ", memberError.getMessage());
-        return Response.failure(memberError.getMessage());
+        log.info("member error : {} ", memberError.getMessage());
+        return ResponseEntity.status(memberError.getHttpStatus())
+                .body(Response.failure(memberError.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

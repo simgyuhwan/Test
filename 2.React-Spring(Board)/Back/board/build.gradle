@@ -31,7 +31,7 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'mysql:mysql-connector-java'
 
-	// https://mvnrepository.com/artifact/com.h2database/h2
+	// h2
 	testImplementation group: 'com.h2database', name: 'h2', version: '1.4.197'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.hamcrest:hamcrest:2.2'
@@ -54,7 +54,6 @@ dependencies {
 
 	// validation
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.7.0'
-
 }
 
 tasks.named('test') {

@@ -41,7 +41,8 @@ public class MemberServiceTest {
         given(memberRepository.existsByEmailOrNickname(email, nickname)).willReturn(true);
 
         // when
-        MemberException result = assertThrows(MemberException.class, ()-> target.addMember(createMemberRequestDTO()));
+        MemberException result = assertThrows(MemberException.class,
+                ()-> target.addMember(createMemberRequestDTO()));
 
         // then
         assertThat(result.getMemberErrorResult(),is(equalTo(MemberErrorResult.DUPLICATED_MEMBER_REGISTER)));
@@ -65,14 +66,6 @@ public class MemberServiceTest {
                 .existsByEmailOrNickname(email,nickname);
         verify(memberRepository, times(1))
                 .save(ArgumentMatchers.any(Member.class));
-    }
-
-    private Member createMember(String email, String nickname, String password){
-        return Member.builder()
-                .email(email)
-                .nickname(nickname)
-                .password(password)
-                .build();
     }
 
     private Member createMember(){
