@@ -1,17 +1,15 @@
 package com.kr.board.domain.member.controller;
 
 import com.google.gson.Gson;
-import com.kr.board.domain.advice.MemberExceptionAdvice;
+import com.kr.board.infra.config.advice.MemberExceptionAdvice;
 import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
-import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.member.serivce.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,7 +20,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
 import static com.kr.board.domain.member.error.MemberErrorResult.INCORRECT_REGISTRATION_INFORMATION;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -242,6 +239,12 @@ public class MemberControllerTest {
                         .content(gson.toJson(createRequestDTO()))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("비빌번호 변경시, 비밀번호 불일치 예외 발생")
+    void passwordMismatchTest() throws Exception{
+
     }
 
     private MemberRequest createRequestDTO(){

@@ -1,4 +1,4 @@
-package com.kr.board.domain.advice;
+package com.kr.board.infra.config.advice;
 
 import com.kr.board.domain.common.response.Response;
 import com.kr.board.domain.member.controller.MemberController;

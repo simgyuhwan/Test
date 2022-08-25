@@ -23,4 +23,11 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    public boolean comparePassword(String oldPassword){
+        return this.password.equals(oldPassword);
+    }
+
+    public void changePassword(String oldPassword) {
+        this.password = oldPassword;
+    }
 }

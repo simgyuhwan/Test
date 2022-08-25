@@ -1,6 +1,7 @@
 package com.kr.board.domain.member.service;
 
 import com.kr.board.domain.member.dto.MemberRequest;
+import com.kr.board.domain.member.dto.PasswordRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
@@ -14,6 +15,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
+import static com.kr.board.domain.member.error.MemberErrorResult.*;
 import static org.hamcrest.MatcherAssert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
@@ -45,7 +49,7 @@ public class MemberServiceTest {
                 ()-> target.addMember(createMemberRequestDTO()));
 
         // then
-        assertThat(result.getMemberErrorResult(),is(equalTo(MemberErrorResult.DUPLICATED_MEMBER_REGISTER)));
+        assertThat(result.getMemberErrorResult(), is(equalTo(DUPLICATED_MEMBER_REGISTER)));
     }
 
     @Test
@@ -53,19 +57,46 @@ public class MemberServiceTest {
     void successfulMembershipRegistrationTest() {
         //given
         Member member = createMember();
-        given(memberRepository.existsByEmailOrNickname(email, nickname))
-                .willReturn(false);
-        when(memberRepository.save(ArgumentMatchers.any(Member.class)))
-                .thenReturn(member);
+        given(memberRepository.existsByEmailOrNickname(email, nickname)).willReturn(false);
+        when(memberRepository.save(ArgumentMatchers.any(Member.class))).thenReturn(member);
 
         //when
         target.addMember(createMemberRequestDTO());
 
         // verify
-        verify(memberRepository, times(1))
-                .existsByEmailOrNickname(email,nickname);
-        verify(memberRepository, times(1))
-                .save(ArgumentMatchers.any(Member.class));
+        verify(memberRepository, times(1)).existsByEmailOrNickname(email,nickname);
+        verify(memberRepository, times(1)).save(ArgumentMatchers.any(Member.class));
+    }
+
+    @Test
+    @DisplayName("비밀번호 변경시, 비밀번호 불일치 예외 발생")
+    void passwordMismatchExceptionTest() {
+        //given
+        given(memberRepository.findByEmail(email))
+                .willReturn(Optional.of(createMember()));
+
+        //when
+        MemberException result = assertThrows(MemberException.class,
+                () -> target.changePassword(email,
+                        createPasswordDTO("invalidPassword",password)));
+
+        //then
+        assertThat(result.getMemberErrorResult(), is(equalTo(PASSWORD_MISMATCH)));
+    }
+
+    @Test
+    @DisplayName("비밀번호 변경 성공")
+    void passwordChangeSuccessfulTest() {
+        //given
+        Member member = createMember();
+        given(memberRepository.findByEmail(email))
+                .willReturn(Optional.of(member));
+
+        //when
+        target.changePassword(email, createPasswordDTO(password, "newPassword"));
+
+        //then
+        assertThat(member.getPassword(), is(equalTo("newPassword")));
     }
 
     private Member createMember(){
@@ -81,6 +112,13 @@ public class MemberServiceTest {
                 .email(email)
                 .nickname(nickname)
                 .password(password)
+                .build();
+    }
+
+    private PasswordRequest createPasswordDTO(String oldPassword, String newPassword){
+        return PasswordRequest.builder()
+                .oldPassword(oldPassword)
+                .newPassword(newPassword)
                 .build();
     }
 
