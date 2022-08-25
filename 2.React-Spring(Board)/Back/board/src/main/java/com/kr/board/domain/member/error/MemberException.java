@@ -1,10 +1,17 @@
 package com.kr.board.domain.member.error;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Getter
 @RequiredArgsConstructor
 public class MemberException extends RuntimeException{
-    private final MemberErrorResult memberErrorResult;
+    private MemberErrorResult memberErrorResult;
+
+    private MemberException(MemberErrorResult memberErrorResult) {
+        this.memberErrorResult = memberErrorResult;
+    }
+
+    public static MemberException of(final MemberErrorResult memberErrorResult){
+        return new MemberException(memberErrorResult);
+    }
 }
