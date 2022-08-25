@@ -1,17 +1,11 @@
 package com.kr.board.domain.member.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.kr.board.domain.advice.GlobalExceptionAdvice;
-import com.kr.board.domain.common.response.Failure;
-import com.kr.board.domain.common.response.Response;
+import com.kr.board.domain.advice.MemberExceptionAdvice;
 import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.member.serivce.MemberService;
-import net.minidev.json.JSONObject;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,20 +14,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.nio.charset.StandardCharsets;
-
 import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static com.kr.board.domain.member.error.MemberErrorResult.INCORRECT_REGISTRATION_INFORMATION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -42,7 +31,7 @@ public class MemberControllerTest {
     private final String url = "/api/v1/members";
     private final String email = "test@email.com";
     private final String nickname = "user";
-    private final String password = "password!";
+    private final String password = "password1@!";
 
     @Mock
     private MemberService memberService;
@@ -58,7 +47,7 @@ public class MemberControllerTest {
     void init() {
         gson = new Gson();
         mockMvc = MockMvcBuilders.standaloneSetup(target)
-                .setControllerAdvice(GlobalExceptionAdvice.class)
+                .setControllerAdvice(MemberExceptionAdvice.class)
                 .build();
     }
 
@@ -66,24 +55,179 @@ public class MemberControllerTest {
     @DisplayName("회원가입시 중복된 값으로 인해 실패")
     void signUpDuplicatedEmailExceptionTest() throws Exception {
         //given
-        doThrow(new MemberException(DUPLICATED_MEMBER_REGISTER))
+        doThrow(MemberException.of(DUPLICATED_MEMBER_REGISTER))
                 .when(memberService)
                 .addMember(any(MemberRequest.class));
 
-        //when
-        final ResultActions result = mockMvc.perform(post(url)
+        //when,then
+        mockMvc.perform(post(url)
                 .content(gson.toJson(createRequestDTO()))
-                .contentType(MediaType.APPLICATION_JSON));
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(DUPLICATED_MEMBER_REGISTER.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
 
-        String content = result.andReturn()
-                .getResponse()
-                .getContentAsString();
+    @Test
+    @DisplayName("닉네임 공백 예외 발생")
+    void nicknameNullExceptionTest() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname("")
+                .email(email)
+                .password(password)
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                .content(gson.toJson(request))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
 
-        //then
-        result.andExpect(status().isBadRequest());
+    @Test
+    @DisplayName("닉네임 최소 길이 예외 발생")
+    void nicknameMinimumLengthExceptionTest() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname("ni")
+                .email(email)
+                .password(password)
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
 
-        assertThat(content.contains(DUPLICATED_MEMBER_REGISTER.getMessage()),
-                is(true));
+    @Test
+    @DisplayName("잘못된 이메일 양식 예외 발생")
+    void invalidEmailExceptionsTest() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email("invalid")
+                .password(password)
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("이메일 공백 예외 발생")
+    void emailNullExceptionTest() throws Exception{
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email("")
+                .password(password)
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("패스워드 공백 예외 발생")
+    void passwordNullException() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email(email)
+                .password("")
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("패스워드 최소 길이 예외 발생")
+    void passwordMinimumLengthExceptionTest() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email(email)
+                .password("1234as!")
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("패스워드 최소 하나의 문자 미포함 예외 발생")
+    void includeAtLeastOneCharacterTest() throws Exception{
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email(email)
+                .password("1234!!!!!!")
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("패스워드 최소 하나의 숫자 미포함 예외 발생")
+    void includeAtLeastOneNumberTest() throws Exception{
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email(email)
+                .password("abcd!!!!!!")
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("패스워드 최소 하나의 특수문자 미포함 예외 발생")
+    void includeAtLeastOneSpecialCharactersTest() throws Exception {
+        //given
+        MemberRequest request = MemberRequest.builder()
+                .nickname(nickname)
+                .email(email)
+                .password("abcd1111")
+                .build();
+        //when
+        mockMvc.perform(post(url)
+                        .content(gson.toJson(request))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$..['message']")
+                        .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
+                .andExpect(status().isBadRequest());
     }
 
     private MemberRequest createRequestDTO(){

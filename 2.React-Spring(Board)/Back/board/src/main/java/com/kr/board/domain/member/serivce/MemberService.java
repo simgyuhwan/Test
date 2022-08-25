@@ -11,6 +11,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
+
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -26,7 +28,7 @@ public class MemberService {
 
     private void DuplicateVerificationOfEmailOrNickname(MemberRequest dto) {
         if(memberRepository.existsByEmailOrNickname(dto.getEmail(), dto.getNickname())){
-            throw new MemberException(MemberErrorResult.DUPLICATED_MEMBER_REGISTER);
+            throw MemberException.of(DUPLICATED_MEMBER_REGISTER);
         }
     }
 }
