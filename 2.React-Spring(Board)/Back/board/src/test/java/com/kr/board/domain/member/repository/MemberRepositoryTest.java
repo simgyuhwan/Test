@@ -51,7 +51,7 @@ public class MemberRepositoryTest {
     @DisplayName("이메일 중복 확인")
     void checkEmailDuplicationTest(){
         //given
-        Member saveMember = memberRepository.save(createMember());
+        memberRepository.save(createMember());
 
         //when
         boolean result = memberRepository.existsByEmailOrNickname(email, "no nickname");
