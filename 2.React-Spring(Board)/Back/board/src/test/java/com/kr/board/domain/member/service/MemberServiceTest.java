@@ -3,10 +3,9 @@ package com.kr.board.domain.member.service;
 import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.dto.PasswordRequest;
 import com.kr.board.domain.member.entity.Member;
-import com.kr.board.domain.member.error.MemberErrorResult;
 import com.kr.board.domain.member.error.MemberException;
-import com.kr.board.infra.repository.MemberRepository;
 import com.kr.board.domain.member.serivce.MemberService;
+import com.kr.board.infra.repository.MemberRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,12 +16,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static com.kr.board.domain.member.error.MemberErrorResult.*;
-import static org.hamcrest.MatcherAssert.*;
+import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
+import static com.kr.board.domain.member.error.MemberErrorResult.PASSWORD_MISMATCH;
+import static com.kr.board.domain.member.factory.MemberFactory.createMember;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -99,13 +100,6 @@ public class MemberServiceTest {
         assertThat(member.getPassword(), is(equalTo("newPassword")));
     }
 
-    private Member createMember(){
-        return Member.builder()
-                .email(email)
-                .nickname(nickname)
-                .password(password)
-                .build();
-    }
 
     private MemberRequest createMemberRequestDTO(){
         return MemberRequest.builder()
