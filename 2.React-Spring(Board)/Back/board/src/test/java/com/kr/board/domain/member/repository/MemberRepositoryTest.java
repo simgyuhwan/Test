@@ -31,7 +31,7 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    @DisplayName("회원 등록")
+    @DisplayName("회원 등록 성공")
     void memberRegisterTest(){
         // given
         Member newMember = Member.builder()
