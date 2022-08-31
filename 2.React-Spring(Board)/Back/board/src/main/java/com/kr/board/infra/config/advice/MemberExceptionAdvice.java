@@ -21,7 +21,7 @@ public class MemberExceptionAdvice {
     @ExceptionHandler(MemberException.class)
     public ResponseEntity<Response> MemberException(MemberException e) {
         MemberErrorResult memberError = e.getMemberErrorResult();
-        log.info("member error : {} ", memberError.getMessage());
+        log.error("member error : {} ", memberError.getMessage());
         return ResponseEntity.status(memberError.getHttpStatus())
                 .body(Response.failure(memberError.getMessage()));
     }
@@ -29,7 +29,7 @@ public class MemberExceptionAdvice {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response SignUpArgumentNotValidException(MethodArgumentNotValidException e){
-        log.info("Signup field error : {}", e.getFieldError()
+        log.error("Signup field error : {}", e.getFieldError()
                 .getField());
         return Response.failure(INCORRECT_REGISTRATION_INFORMATION
                 .getMessage());

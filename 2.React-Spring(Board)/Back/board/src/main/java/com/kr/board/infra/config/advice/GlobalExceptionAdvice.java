@@ -14,7 +14,7 @@ public class GlobalExceptionAdvice {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Response> entityNotFoundException(EntityNotFoundException e) {
-        log.info("entity error : {}, what1 : {} , what2 : {}", e.getMessage(), e.getCause(),e.getLocalizedMessage());
+        log.error("entity error : {}, what1 : {} , what2 : {}", e.getMessage(), e.getCause(),e.getLocalizedMessage());
         return ResponseEntity.badRequest()
                 .body(Response.failure("Invalid approach."));
     }
