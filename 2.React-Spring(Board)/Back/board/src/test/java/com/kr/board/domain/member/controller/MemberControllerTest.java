@@ -1,11 +1,11 @@
 package com.kr.board.domain.member.controller;
 
 import com.google.gson.Gson;
-import com.kr.board.infra.config.advice.MemberExceptionAdvice;
 import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.member.serivce.MemberService;
+import com.kr.board.infra.config.advice.MemberExceptionAdvice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -21,6 +20,7 @@ import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMB
 import static com.kr.board.domain.member.error.MemberErrorResult.INCORRECT_REGISTRATION_INFORMATION;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -62,7 +62,7 @@ public class MemberControllerTest {
         //when,then
         mockMvc.perform(post(url)
                 .content(gson.toJson(createRequestDTO()))
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(DUPLICATED_MEMBER_REGISTER.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -80,7 +80,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                 .content(gson.toJson(request))
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -98,7 +98,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -116,7 +116,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -134,7 +134,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -152,7 +152,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -170,7 +170,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -188,7 +188,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -206,7 +206,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION.getMessage()))
                 .andExpect(status().isBadRequest());
@@ -224,7 +224,7 @@ public class MemberControllerTest {
         //when
         mockMvc.perform(post(url)
                         .content(gson.toJson(request))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_INFORMATION
                                 .getMessage()))
@@ -237,7 +237,7 @@ public class MemberControllerTest {
         //when, then
         mockMvc.perform(post(url)
                         .content(gson.toJson(createRequestDTO()))
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
