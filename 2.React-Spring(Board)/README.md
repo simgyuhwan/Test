@@ -95,12 +95,18 @@ dependencies {
 
 ### &nbsp; 2. API
 
-#### &nbsp;&nbsp; Member (/api/v1/members)
+#### &nbsp;&nbsp; Member
 
-- 회원 등록
+- 회원 등록 (/api/v1/members)
+
   - 기능 : 회원 등록
   - 요청 : 이메일, 닉네임, 비밀번호
   - 응답 : X
+
+- 로그인 (/api/v1/login)
+  - 기능 : 회원 로그인
+  - 요청 : 이메일, 비밀번호
+  - 응답 : x
 
 ---
 
