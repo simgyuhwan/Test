@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Getter
+@Entity @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post extends BaseEntity {
