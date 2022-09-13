@@ -12,7 +12,6 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Post extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +32,8 @@ public class Post extends BaseEntity {
     private Member member;
 
     @Builder
-    public Post(String title, String content, String writer, Member member) {
+    public Post(Long id, String title, String content, String writer, Member member) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.writer = writer;
