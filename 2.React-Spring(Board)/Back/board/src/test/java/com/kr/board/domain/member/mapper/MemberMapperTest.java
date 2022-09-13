@@ -1,5 +1,6 @@
 package com.kr.board.domain.member.mapper;
 
+import com.kr.board.domain.common.mapper.member.MemberRequestMapper;
 import com.kr.board.domain.member.dto.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
 import org.junit.jupiter.api.DisplayName;

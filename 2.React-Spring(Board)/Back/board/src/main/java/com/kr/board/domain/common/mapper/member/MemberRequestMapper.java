@@ -1,4 +1,4 @@
-package com.kr.board.domain.member.mapper;
+package com.kr.board.domain.common.mapper.member;
 
 import com.kr.board.domain.common.mapper.GenericMapper;
 import com.kr.board.domain.member.dto.MemberRequest;

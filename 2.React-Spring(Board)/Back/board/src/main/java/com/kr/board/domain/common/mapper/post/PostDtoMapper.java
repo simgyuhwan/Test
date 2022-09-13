@@ -1,4 +1,4 @@
-package com.kr.board.domain.posts.mapper;
+package com.kr.board.domain.common.mapper.post;
 
 import com.kr.board.domain.common.mapper.GenericMapper;
 import com.kr.board.domain.posts.dto.PostDto;
