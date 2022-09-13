@@ -1,11 +1,9 @@
 package com.kr.board.domain.posts.repository;
 
 import com.kr.board.domain.member.entity.Member;
-import com.kr.board.domain.member.factory.MemberFactory;
 import com.kr.board.domain.posts.entity.Post;
+import com.kr.board.domain.posts.factory.PostFactory;
 import com.kr.board.infra.repository.MemberRepository;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,19 +12,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import java.util.List;
 
 import static com.kr.board.domain.member.factory.MemberFactory.createMember;
+import static com.kr.board.domain.posts.factory.PostFactory.createPost;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @DataJpaTest
 public class PostRepositoryTest {
 
-    private String writer = "firstWriter";
-    private String title = "title1";
-    private String content = "content1";
     private Post savePost;
     private Member saveMember;
 
@@ -43,7 +38,7 @@ public class PostRepositoryTest {
     void init() {
         saveMember = memberRepository.save(createMember());
         clear();
-        savePost = postRepository.save(createPost());
+        savePost = postRepository.save(createPost(saveMember));
     }
 
     @Test
@@ -54,7 +49,7 @@ public class PostRepositoryTest {
                 .title("title")
                 .content("content")
                 .writer("userNickname")
-                .member(createMember())
+                .member(saveMember)
                 .build();
         //when
         Post result = postRepository.save(post);
@@ -69,6 +64,7 @@ public class PostRepositoryTest {
     @DisplayName("작성자를 통한 게시글 조회")
     void findByuWriterTest() {
         //given, when
+        String writer = savePost.getWriter();
         List<Post> results = postRepository.findByWriter(writer);
 
         //then
@@ -78,40 +74,47 @@ public class PostRepositoryTest {
 
     @Test
     @DisplayName("MemberId를 통한 게시글 조회")
-    void findByUserIdTest(){
-        //given
-        List<Post> results = postRepository.findAllByMemberId(saveMember
-                                                                    .getId());
+    void findByMemberIdTest(){
         //when
-        Post savePost = results.get(0);
+        List<Post> results = postRepository.findAllByMemberId(saveMember.getId());
 
         //then
-        assertThat(savePost.getWriter(), is(equalTo(writer)));
         assertThat(results.size(), is(equalTo(1)));
-        assertThat(savePost.getMember().getId(),
-                                            is(equalTo(saveMember.getId())));
+    }
+
+    @Test
+    @DisplayName("MemberId를 통한 게시글 조회 없음")
+    void findByMemberIdFailureTest() {
+        //given, when
+        Long noMemberId = 100L;
+        List<Post> posts = postRepository.findAllByMemberId(noMemberId);
+
+        //then
+        assertThat(posts.size(), is(equalTo(0)));
     }
 
     @Test
     @DisplayName("제목명 포함된 게시글 모두 조회")
     void findByTitleContainingTest(){
         //given, when
-        Post findPost = postRepository
-                .findByTitleContainingOrContentContaining(title, "no Content")
-                .get(0);
+        List<Post> posts = postRepository
+                .findByTitleContainingOrContentContaining(savePost.getTitle(),
+                        "no Content");
 
         //then
-        assertThat(findPost.getTitle(), is(equalTo(title)));
+        assertThat(posts.size(),
+                is(equalTo(1)));
     }
 
     @Test
     @DisplayName("내용이 포함된 게시글 모두 조회")
     void findByContentTest() {
         //given, when
-        Post findPost = postRepository.findByTitleContainingOrContentContaining("no title", content)
-                .get(0);
+        List<Post> posts = postRepository.findByTitleContainingOrContentContaining("no title",
+                        savePost.getContent());
         //then
-        assertThat(findPost.getContent(), is(equalTo(content)));
+        assertThat(posts.size(),
+                is(equalTo(1)));
     }
 
     @Test
@@ -122,14 +125,6 @@ public class PostRepositoryTest {
                 .findByTitleContainingOrContentContaining("no title", "no content");
         //then
         assertThat(findPost.size(), is(equalTo(0)));
-    }
-    private Post createPost(){
-        return Post.builder()
-                .title(title)
-                .content(content)
-                .writer(writer)
-                .member(saveMember)
-                .build();
     }
 
     private void clear() {
