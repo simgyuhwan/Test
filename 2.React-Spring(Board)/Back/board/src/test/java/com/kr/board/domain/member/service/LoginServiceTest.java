@@ -14,7 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static com.kr.board.domain.member.error.LoginErrorResult.NO_MEMBER_INFORMATION_EXCEPTION;
-import static com.kr.board.domain.member.factory.MemberFactory.createMember;
+import static com.kr.board.domain.factory.member.MemberFactory.createMember;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;

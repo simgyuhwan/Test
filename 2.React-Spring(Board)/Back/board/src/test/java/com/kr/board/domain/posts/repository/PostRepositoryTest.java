@@ -2,7 +2,6 @@ package com.kr.board.domain.posts.repository;
 
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.posts.entity.Post;
-import com.kr.board.domain.posts.factory.PostFactory;
 import com.kr.board.infra.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,8 +13,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.kr.board.domain.member.factory.MemberFactory.createMember;
-import static com.kr.board.domain.posts.factory.PostFactory.createPost;
+import static com.kr.board.domain.factory.member.MemberFactory.createMember;
+import static com.kr.board.domain.factory.post.PostFactory.createPost;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 

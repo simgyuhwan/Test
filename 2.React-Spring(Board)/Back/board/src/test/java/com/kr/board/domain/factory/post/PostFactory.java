@@ -1,4 +1,4 @@
-package com.kr.board.domain.posts.factory;
+package com.kr.board.domain.factory.post;
 
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.posts.entity.Post;

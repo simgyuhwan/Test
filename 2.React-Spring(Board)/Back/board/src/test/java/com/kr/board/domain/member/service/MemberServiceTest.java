@@ -18,7 +18,7 @@ import java.util.Optional;
 
 import static com.kr.board.domain.member.error.MemberErrorResult.DUPLICATED_MEMBER_REGISTER;
 import static com.kr.board.domain.member.error.MemberErrorResult.PASSWORD_MISMATCH;
-import static com.kr.board.domain.member.factory.MemberFactory.createMember;
+import static com.kr.board.domain.factory.member.MemberFactory.createMember;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;

@@ -2,14 +2,14 @@ package com.kr.board.domain.posts.mapper;
 
 import com.kr.board.domain.common.mapper.post.PostDtoMapper;
 import com.kr.board.domain.member.entity.Member;
-import com.kr.board.domain.member.factory.MemberFactory;
+import com.kr.board.domain.factory.member.MemberFactory;
 import com.kr.board.domain.posts.dto.PostDto;
 import com.kr.board.domain.posts.entity.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.kr.board.domain.posts.factory.PostFactory.createPost;
+import static com.kr.board.domain.factory.post.PostFactory.createPost;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PostDtoMapperTest {
