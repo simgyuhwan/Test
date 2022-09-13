@@ -14,4 +14,5 @@ public class PostDto {
     private String title;
     private String content;
     private String writer;
+    private Long viewCount;
 }

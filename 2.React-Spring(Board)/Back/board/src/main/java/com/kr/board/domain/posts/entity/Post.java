@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Builder
 @Entity @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Post extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,16 +28,20 @@ public class Post extends BaseEntity {
     @Column(name = "writer")
     private String writer;
 
+    @Column(name = "view_count")
+    @Builder.Default
+    private Long viewCount = 1L;
+
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-
-    @Builder
-    public Post(Long id, String title, String content, String writer, Member member) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.writer = writer;
-        this.member = member;
-    }
+//
+//    @Builder
+//    public Post(Long id, String title, String content, String writer, Member member) {
+//        this.id = id;
+//        this.title = title;
+//        this.content = content;
+//        this.writer = writer;
+//        this.member = member;
+//    }
 }
