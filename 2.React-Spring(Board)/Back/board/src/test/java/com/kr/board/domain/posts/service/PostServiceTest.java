@@ -1,7 +1,7 @@
 package com.kr.board.domain.posts.service;
 
 import com.kr.board.domain.member.entity.Member;
-import com.kr.board.domain.posts.dto.PostDto;
+import com.kr.board.domain.posts.dto.PostRegister;
 import com.kr.board.domain.posts.entity.Post;
 import com.kr.board.domain.posts.repository.PostRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -47,7 +47,7 @@ public class PostServiceTest {
                 .willReturn(savePost);
 
         //when
-        PostDto result = target.register(createPostDto(savePost));
+        PostRegister result = target.register(createPostDto(savePost));
 
         //then
         assertThat(result, is(notNullValue()));
@@ -56,8 +56,8 @@ public class PostServiceTest {
         assertThat(result.getViewCount(),is(equalTo(1L)));
     }
 
-    private PostDto createPostDto(Post post){
-        return PostDto.builder()
+    private PostRegister createPostDto(Post post){
+        return PostRegister.builder()
                 .writer(post.getWriter())
                 .title(post.getTitle())
                 .content(post.getContent())

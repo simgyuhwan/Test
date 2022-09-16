@@ -1,9 +1,9 @@
 package com.kr.board.domain.posts.mapper;
 
-import com.kr.board.domain.common.mapper.post.PostDtoMapper;
+import com.kr.board.domain.common.mapper.post.PostRegisterMapper;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.factory.member.MemberFactory;
-import com.kr.board.domain.posts.dto.PostDto;
+import com.kr.board.domain.posts.dto.PostRegister;
 import com.kr.board.domain.posts.entity.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import static com.kr.board.domain.factory.post.PostFactory.createPost;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PostDtoMapperTest {
+public class PostRegisterMapperTest {
 
     private Member member;
 
@@ -28,7 +28,7 @@ public class PostDtoMapperTest {
         Post post = createPost(member);
 
         //when
-        PostDto dto = PostDtoMapper.INSTANCE.toDto(post);
+        PostRegister dto = PostRegisterMapper.INSTANCE.toDto(post);
 
         //then
         assertThat(post.getContent()).isEqualTo(dto.getContent());
@@ -40,14 +40,14 @@ public class PostDtoMapperTest {
     @DisplayName("Dto To Entity")
     void mapperDtoToEntityTest(){
         //given
-        PostDto dto = PostDto.builder()
+        PostRegister dto = PostRegister.builder()
                 .writer("writer")
                 .title("title")
                 .id(1L)
                 .build();
 
         //when
-        Post post = PostDtoMapper.INSTANCE.toEntity(dto);
+        Post post = PostRegisterMapper.INSTANCE.toEntity(dto);
 
         //then
         assertThat(post.getWriter()).isEqualTo("writer");
