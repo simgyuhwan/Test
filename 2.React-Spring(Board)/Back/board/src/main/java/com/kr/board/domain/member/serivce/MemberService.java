@@ -1,7 +1,7 @@
 package com.kr.board.domain.member.serivce;
 
-import com.kr.board.domain.member.dto.MemberRequest;
-import com.kr.board.domain.member.dto.PasswordRequest;
+import com.kr.board.domain.member.dto.request.MemberRequest;
+import com.kr.board.domain.member.dto.request.PasswordRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.common.mapper.member.MemberRequestMapper;

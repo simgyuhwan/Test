@@ -1,7 +1,7 @@
 package com.kr.board.domain.member.controller;
 
 import com.google.gson.Gson;
-import com.kr.board.domain.member.dto.MemberRequest;
+import com.kr.board.domain.member.dto.request.MemberRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.MemberException;
 import com.kr.board.domain.member.serivce.MemberService;
@@ -241,11 +241,12 @@ public class MemberControllerTest {
                 .andExpect(status().isOk());
     }
 
-    @Test
-    @DisplayName("비빌번호 변경시, 비밀번호 불일치 예외 발생")
-    void passwordMismatchTest() throws Exception{
-
-    }
+    // Spring Security 적용 후 테스트 예정
+//    @Test
+//    @DisplayName("비빌번호 변경시, 비밀번호 불일치 예외 발생")
+//    void passwordMismatchTest() throws Exception{
+//
+//    }
 
     private MemberRequest createRequestDTO(){
         return MemberRequest.builder()

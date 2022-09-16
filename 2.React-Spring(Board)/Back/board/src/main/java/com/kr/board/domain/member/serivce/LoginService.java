@@ -1,7 +1,6 @@
 package com.kr.board.domain.member.serivce;
 
-import com.kr.board.domain.member.dto.LoginRequest;
-import com.kr.board.domain.member.error.LoginErrorResult;
+import com.kr.board.domain.member.dto.request.LoginRequest;
 import com.kr.board.domain.member.error.LoginException;
 import com.kr.board.infra.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

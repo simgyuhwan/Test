@@ -1,4 +1,4 @@
-package com.kr.board.domain.member.dto;
+package com.kr.board.domain.member.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,7 @@
 package com.kr.board.domain.common.mapper.post;
 
 import com.kr.board.domain.common.mapper.GenericMapper;
-import com.kr.board.domain.posts.dto.PostRegister;
+import com.kr.board.domain.posts.dto.request.PostRegister;
 import com.kr.board.domain.posts.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

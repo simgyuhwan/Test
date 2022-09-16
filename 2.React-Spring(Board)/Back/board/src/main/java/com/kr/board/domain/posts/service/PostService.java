@@ -1,6 +1,6 @@
 package com.kr.board.domain.posts.service;
 
-import com.kr.board.domain.posts.dto.PostRegister;
+import com.kr.board.domain.posts.dto.request.PostRegister;
 import com.kr.board.domain.posts.entity.Post;
 import com.kr.board.domain.common.mapper.post.PostRegisterMapper;
 import com.kr.board.domain.posts.repository.PostRepository;

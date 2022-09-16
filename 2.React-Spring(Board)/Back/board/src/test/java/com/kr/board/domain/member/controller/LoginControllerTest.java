@@ -1,7 +1,7 @@
 package com.kr.board.domain.member.controller;
 
 import com.google.gson.Gson;
-import com.kr.board.domain.member.dto.LoginRequest;
+import com.kr.board.domain.member.dto.request.LoginRequest;
 import com.kr.board.domain.member.error.LoginException;
 import com.kr.board.domain.member.serivce.LoginService;
 import com.kr.board.infra.config.advice.LoginExceptionAdvice;

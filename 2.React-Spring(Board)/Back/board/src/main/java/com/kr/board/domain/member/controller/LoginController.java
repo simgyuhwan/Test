@@ -1,7 +1,7 @@
 package com.kr.board.domain.member.controller;
 
 import com.kr.board.domain.common.response.Response;
-import com.kr.board.domain.member.dto.LoginRequest;
+import com.kr.board.domain.member.dto.request.LoginRequest;
 import com.kr.board.domain.member.serivce.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

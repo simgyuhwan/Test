@@ -1,6 +1,6 @@
 package com.kr.board.domain.member.service;
 
-import com.kr.board.domain.member.dto.LoginRequest;
+import com.kr.board.domain.member.dto.request.LoginRequest;
 import com.kr.board.domain.member.entity.Member;
 import com.kr.board.domain.member.error.LoginException;
 import com.kr.board.domain.member.serivce.LoginService;
