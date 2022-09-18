@@ -2,7 +2,9 @@ package com.kr.board.domain.posts.controller;
 
 import com.google.gson.Gson;
 import com.kr.board.domain.posts.dto.request.PostRegister;
+import com.kr.board.domain.posts.error.PostErrorResult;
 import com.kr.board.domain.posts.service.PostService;
+import com.kr.board.infra.config.advice.PostExceptionAdvice;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +15,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static com.kr.board.domain.posts.error.PostErrorResult.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @ExtendWith(MockitoExtension.class)
 public class PostControllerTest {
@@ -36,6 +42,7 @@ public class PostControllerTest {
     @BeforeEach
     void init(){
         mockMvc = MockMvcBuilders.standaloneSetup(target)
+                .setControllerAdvice(PostExceptionAdvice.class)
                 .build();
     }
 
@@ -44,15 +51,15 @@ public class PostControllerTest {
     void titleSpaceExceptionTest() throws Exception {
         PostRegister postRegister = PostRegister.builder()
                 .content(content)
-                .writer(writer)
+                .writer("")
                 .build();
 
         mockMvc.perform(post(url)
                 .contentType(APPLICATION_JSON)
                 .content(gson.toJson(postRegister)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$..['message']")
+                .andExpect(jsonPath("$..['message']")
                         .value(INCORRECT_REGISTRATION_POST.getMessage()))
-                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+                .andExpect(status().isBadRequest());
     }
 
     @Test

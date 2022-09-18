@@ -53,7 +53,6 @@ public class PostServiceTest {
         assertThat(result, is(notNullValue()));
         assertThat(result.getTitle(),
                 is(equalTo(savePost.getTitle())));
-        assertThat(result.getViewCount(),is(equalTo(1L)));
     }
 
     private PostRegister createPostDto(Post post){
