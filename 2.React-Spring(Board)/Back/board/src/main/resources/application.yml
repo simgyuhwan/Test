@@ -14,16 +14,18 @@ spring:
     database-platform: H2
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     generate-ddl: true
-
   config:
     activate:
       on-profile: dev
+
+server:
+  port: 11111
 
 logging:
   level:

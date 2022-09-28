@@ -35,13 +35,8 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-//
-//    @Builder
-//    public Post(Long id, String title, String content, String writer, Member member) {
-//        this.id = id;
-//        this.title = title;
-//        this.content = content;
-//        this.writer = writer;
-//        this.member = member;
-//    }
+
+    public boolean ownerVerification(Long userId){
+        return member.equalsToId(userId);
+    }
 }

@@ -15,4 +15,13 @@ public class MemberFactory {
                 .password(password)
                 .build();
     }
+
+    public static Member createFullMember(){
+        return Member.builder()
+                .id(1L)
+                .email(email)
+                .nickname(nickname)
+                .password(password)
+                .build();
+    }
 }

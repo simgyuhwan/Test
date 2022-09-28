@@ -31,4 +31,8 @@ public class Member extends BaseEntity {
     public void changePassword(String oldPassword) {
         this.password = oldPassword;
     }
+
+    public boolean equalsToId(Long userId){
+        return id == userId;
+    }
 }
