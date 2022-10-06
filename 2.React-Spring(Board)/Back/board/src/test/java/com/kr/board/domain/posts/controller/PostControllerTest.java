@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static com.kr.board.domain.posts.error.PostErrorResult.*;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -45,6 +46,19 @@ public class PostControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(target)
                 .setControllerAdvice(PostExceptionAdvice.class)
                 .build();
+    }
+
+    @Test
+    @DisplayName("게시물 삭제 : 익명 계정 예외 발생")
+    void anonymousAccountExceptionsTest() throws Exception{
+
+    }
+
+    @Test
+    @DisplayName("게시물 삭제 : 삭제 성공")
+    void successfulPostDeletion() throws Exception{
+        mockMvc.perform(delete(url + "/1"))
+                .andExpect(status().isOk());
     }
 
     @Test
