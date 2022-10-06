@@ -48,7 +48,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("제목 널값 예외 발생")
+    @DisplayName("게시물 등록 : 제목 널값 예외 발생")
     void titleNullValueExceptionTest() throws Exception {
         PostRegister dto = PostRegister.builder()
                 .content(content)
@@ -64,7 +64,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("제목 공백 예외 발생")
+    @DisplayName("게시물 등록 : 제목 공백 예외 발생")
     void titleSpaceExceptionTest() throws Exception {
         PostRegister dto = PostRegister.builder()
                 .content(content)
@@ -81,7 +81,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("내용 널값 예외 발생")
+    @DisplayName("게시물 등록 : 내용 널값 예외 발생")
     void contentNullValueExceptionTest() throws Exception {
         PostRegister dto = PostRegister.builder()
                 .title(title)
@@ -97,7 +97,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("내용 공백 예외 발생")
+    @DisplayName("게시물 등록 : 내용 공백 예외 발생")
     void contentSpaceExceptionTest() throws Exception {
         PostRegister dto = PostRegister.builder()
                 .title(title)
@@ -114,7 +114,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("게시물 등록 성공")
+    @DisplayName("게시물 등록 : 등록 성공")
     void postRegistrationSuccessTest() throws Exception{
         mockMvc.perform(post(url)
                 .content(gson.toJson(createDto()))

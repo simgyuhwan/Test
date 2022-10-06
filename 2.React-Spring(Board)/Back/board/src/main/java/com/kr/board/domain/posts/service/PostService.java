@@ -22,8 +22,7 @@ public class PostService {
     private PostRegisterMapper mapper = Mappers.getMapper(PostRegisterMapper.class);
 
     public PostRegister register(PostRegister postDto){
-        Post post = postRepository.save(mapper
-                                    .toEntity(postDto));
+        Post post = postRepository.save(mapper.toEntity(postDto));
         return mapper.toDto(post);
     }
 

@@ -44,7 +44,6 @@ public class PostServiceTest {
     @InjectMocks
     PostService target;
 
-
     @BeforeEach
     void init(){
         saveMember = createFullMember();
