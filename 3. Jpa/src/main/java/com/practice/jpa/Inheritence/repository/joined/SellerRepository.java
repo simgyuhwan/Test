@@ -1,4 +1,4 @@
-package com.practice.jpa.repository.joined;
+package com.practice.jpa.Inheritence.repository.joined;
 
 import com.practice.jpa.Inheritence.joined.Seller;
 import org.springframework.data.jpa.repository.JpaRepository;

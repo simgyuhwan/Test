@@ -2,6 +2,7 @@ package com.practice.jpa.repository.joined;
 
 import com.practice.jpa.Inheritence.joined.Item;
 import com.practice.jpa.Inheritence.joined.Seller;
+import com.practice.jpa.Inheritence.repository.joined.SellerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
