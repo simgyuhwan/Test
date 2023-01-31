@@ -1,5 +1,6 @@
 package com.practice.jpa.Inheritence.joined;
 
+import com.practice.jpa.Inheritence.joined.sub.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,7 +16,7 @@ import lombok.*;
 @ToString
 @Getter
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn
+@DiscriminatorColumn(name = "role")
 public class User {
 
     @Id
@@ -29,4 +30,9 @@ public class User {
     @Setter(AccessLevel.PROTECTED)
     @Column(name = "user_id", unique = false, nullable = false)
     private String userId;
+
+
+    @Column(nullable = false, name = "user_role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

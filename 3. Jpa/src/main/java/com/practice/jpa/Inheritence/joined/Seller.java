@@ -1,5 +1,7 @@
 package com.practice.jpa.Inheritence.joined;
 
+import com.practice.jpa.Inheritence.joined.sub.Item;
+import com.practice.jpa.Inheritence.joined.sub.Role;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,15 +23,13 @@ import java.util.List;
 @ToString
 @DiscriminatorValue("seller")
 public class Seller extends User{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     private Integer money;
 
     @ToString.Exclude
     @OneToMany(orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Item> sellerItems;
+
 
     private Seller(Integer money, List<Item> items, String name, String userId) {
         this.money = money;

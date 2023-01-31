@@ -1,4 +1,4 @@
-package com.practice.jpa.Inheritence.joined;
+package com.practice.jpa.Inheritence.joined.sub;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -18,6 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @ToString
+@Table(name = "seller_item")
 public class Item {
 
     @Id

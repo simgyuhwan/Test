@@ -3930,3 +3930,1038 @@ insert into user (name, user_id) values (?, ?) [42102-200]
 2023-01-31T19:02:00.061+09:00  INFO 21140 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-01-31T19:02:00.063+09:00  INFO 21140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-01-31T19:02:00.068+09:00  INFO 21140 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:34:16.112+09:00  INFO 22016 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 22016 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:34:16.113+09:00  INFO 22016 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:34:16.447+09:00  INFO 22016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:34:16.503+09:00  INFO 22016 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:34:16.863+09:00  INFO 22016 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:34:16.957+09:00  INFO 22016 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:34:17.163+09:00  WARN 22016 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:34:17.428+09:00  INFO 22016 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:34:17.701+09:00  INFO 22016 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37d3e140
+2023-01-31T19:34:17.702+09:00  INFO 22016 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:34:17.716+09:00  INFO 22016 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:34:17.717+09:00  WARN 22016 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:34:17.797+09:00  WARN 22016 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:34:18.670+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    create table member (
+       member_id bigint not null auto_increment,
+        age integer not null,
+        username varchar(255),
+        team_id bigint,
+        primary key (member_id)
+    ) engine=InnoDB
+2023-01-31T19:34:18.691+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    create table team (
+       team_id bigint not null auto_increment,
+        name varchar(255),
+        primary key (team_id)
+    ) engine=InnoDB
+2023-01-31T19:34:18.709+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    create table team_members (
+       team_team_id bigint not null,
+        members_member_id bigint not null
+    ) engine=InnoDB
+2023-01-31T19:34:18.734+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       drop index UK_qakwdx6c7b4hmfj8545dj90fg
+2023-01-31T19:34:18.742+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint UK_qakwdx6c7b4hmfj8545dj90fg unique (members_member_id)
+2023-01-31T19:34:18.782+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    alter table member 
+       add constraint FKcjte2jn9pvo9ud2hyfgwcja0k 
+       foreign key (team_id) 
+       references team (team_id)
+2023-01-31T19:34:18.835+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FKjn19iu2oeu7hrdwgksruki0mn 
+       foreign key (members_member_id) 
+       references member (member_id)
+2023-01-31T19:34:18.873+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FK2ym1sj502875uhxqysx3xlmbb 
+       foreign key (team_team_id) 
+       references team (team_id)
+2023-01-31T19:34:18.917+09:00  INFO 22016 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:34:18.927+09:00  INFO 22016 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:34:19.136+09:00  WARN 22016 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:34:19.294+09:00  INFO 22016 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 3.607 seconds (process running for 4.799)
+2023-01-31T19:34:19.532+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:34:19.539+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:34:19.541+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:34:19.544+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:34:19.607+09:00 DEBUG 22016 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        m1_0.team_id,
+        m1_0.username 
+    from
+        member m1_0
+2023-01-31T19:34:19.638+09:00  INFO 22016 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:34:19.639+09:00  INFO 22016 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:34:19.644+09:00  INFO 22016 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:49:36.799+09:00  INFO 27308 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 27308 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:49:36.800+09:00  INFO 27308 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:49:37.048+09:00  INFO 27308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:49:37.113+09:00  INFO 27308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:49:37.355+09:00  INFO 27308 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:49:37.396+09:00  INFO 27308 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:49:37.515+09:00  WARN 27308 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:49:37.718+09:00  INFO 27308 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:49:37.929+09:00  INFO 27308 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16681017
+2023-01-31T19:49:37.931+09:00  INFO 27308 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:49:37.942+09:00  INFO 27308 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:49:37.942+09:00  WARN 27308 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:49:38.006+09:00  WARN 27308 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:49:38.662+09:00  INFO 27308 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:49:38.670+09:00  INFO 27308 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:49:38.914+09:00  WARN 27308 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:49:39.073+09:00  INFO 27308 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.592 seconds (process running for 3.234)
+2023-01-31T19:49:39.272+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:49:39.285+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:49:39.287+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:49:39.289+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:49:39.341+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        m1_0.team_id,
+        m1_0.username 
+    from
+        member m1_0
+2023-01-31T19:49:39.355+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    select
+        t1_0.team_id,
+        t1_0.name 
+    from
+        team t1_0 
+    where
+        t1_0.team_id=?
+2023-01-31T19:49:39.360+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:49:39.362+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    select
+        t1_0.team_id,
+        t1_0.name 
+    from
+        team t1_0 
+    where
+        t1_0.team_id=?
+2023-01-31T19:49:39.363+09:00 DEBUG 27308 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:49:39.374+09:00  INFO 27308 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:49:39.375+09:00  INFO 27308 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:49:39.380+09:00  INFO 27308 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:51:33.852+09:00  INFO 31544 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 31544 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:51:33.853+09:00  INFO 31544 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:51:34.152+09:00  INFO 31544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:51:34.195+09:00  INFO 31544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:51:34.441+09:00  INFO 31544 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:51:34.486+09:00  INFO 31544 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:51:34.620+09:00  WARN 31544 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:51:34.799+09:00  INFO 31544 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:51:34.997+09:00  INFO 31544 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1c6a0103
+2023-01-31T19:51:34.998+09:00  INFO 31544 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:51:35.010+09:00  INFO 31544 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:51:35.010+09:00  WARN 31544 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:51:35.074+09:00  WARN 31544 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:51:35.763+09:00  INFO 31544 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:51:35.770+09:00  INFO 31544 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:51:35.976+09:00  WARN 31544 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:51:36.097+09:00  INFO 31544 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.525 seconds (process running for 3.165)
+2023-01-31T19:51:36.249+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:51:36.256+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:51:36.258+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:51:36.259+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:51:36.311+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        m1_0.team_id,
+        m1_0.username 
+    from
+        member m1_0
+2023-01-31T19:51:36.324+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    select
+        t1_0.team_id,
+        t1_0.name 
+    from
+        team t1_0 
+    where
+        t1_0.team_id=?
+2023-01-31T19:51:36.329+09:00 DEBUG 31544 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:51:36.340+09:00  INFO 31544 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:51:36.342+09:00  INFO 31544 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:51:36.346+09:00  INFO 31544 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:55:04.376+09:00  INFO 13888 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 13888 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:55:04.377+09:00  INFO 13888 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:55:04.680+09:00  INFO 13888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:55:04.738+09:00  INFO 13888 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:55:04.991+09:00  INFO 13888 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:55:05.044+09:00  INFO 13888 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:55:05.171+09:00  WARN 13888 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:55:05.352+09:00  INFO 13888 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:55:05.558+09:00  INFO 13888 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@477523ba
+2023-01-31T19:55:05.559+09:00  INFO 13888 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:55:05.571+09:00  INFO 13888 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:55:05.571+09:00  WARN 13888 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:55:05.639+09:00  WARN 13888 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:55:06.320+09:00  INFO 13888 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:55:06.326+09:00  INFO 13888 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:55:06.536+09:00  WARN 13888 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:55:06.915+09:00  INFO 13888 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.828 seconds (process running for 3.462)
+2023-01-31T19:55:07.141+09:00 DEBUG 13888 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:55:07.150+09:00 DEBUG 13888 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:55:07.151+09:00 DEBUG 13888 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:55:07.202+09:00 DEBUG 13888 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        t1_0.team_id,
+        t1_0.name,
+        m1_0.username 
+    from
+        member m1_0 
+    join
+        team t1_0 
+            on t1_0.team_id=m1_0.team_id
+2023-01-31T19:55:07.214+09:00 DEBUG 13888 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:55:07.228+09:00  INFO 13888 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:55:07.230+09:00  INFO 13888 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:55:07.235+09:00  INFO 13888 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:55:24.315+09:00  INFO 29112 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 29112 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:55:24.317+09:00  INFO 29112 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:55:24.604+09:00  INFO 29112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:55:24.663+09:00  INFO 29112 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:55:24.887+09:00  INFO 29112 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:55:24.931+09:00  INFO 29112 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:55:25.049+09:00  WARN 29112 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:55:25.240+09:00  INFO 29112 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:55:25.448+09:00  INFO 29112 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6aea99e7
+2023-01-31T19:55:25.449+09:00  INFO 29112 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:55:25.461+09:00  INFO 29112 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:55:25.461+09:00  WARN 29112 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:55:25.524+09:00  WARN 29112 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:55:26.192+09:00  INFO 29112 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:55:26.199+09:00  INFO 29112 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:55:26.393+09:00  WARN 29112 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:55:26.742+09:00  INFO 29112 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.747 seconds (process running for 3.489)
+2023-01-31T19:55:26.955+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:55:26.962+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:55:26.964+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:55:26.966+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:55:27.014+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        t1_0.team_id,
+        t1_0.name,
+        m1_0.username 
+    from
+        member m1_0 
+    join
+        team t1_0 
+            on t1_0.team_id=m1_0.team_id
+2023-01-31T19:55:27.025+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:55:27.027+09:00 DEBUG 29112 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:55:27.040+09:00  INFO 29112 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:55:27.041+09:00  INFO 29112 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:55:27.047+09:00  INFO 29112 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:56:06.292+09:00  INFO 20804 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 20804 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:56:06.293+09:00  INFO 20804 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:56:06.525+09:00  INFO 20804 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:56:06.577+09:00  INFO 20804 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:56:06.871+09:00  INFO 20804 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:56:06.917+09:00  INFO 20804 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:56:07.032+09:00  WARN 20804 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:56:07.213+09:00  INFO 20804 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:56:07.400+09:00  INFO 20804 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6aea99e7
+2023-01-31T19:56:07.401+09:00  INFO 20804 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:56:07.412+09:00  INFO 20804 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:56:07.412+09:00  WARN 20804 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:56:07.473+09:00  WARN 20804 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:56:08.159+09:00  INFO 20804 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:56:08.167+09:00  INFO 20804 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:56:08.358+09:00  WARN 20804 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:56:08.644+09:00  INFO 20804 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.645 seconds (process running for 3.329)
+2023-01-31T19:56:08.802+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:56:08.809+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:56:08.810+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:56:08.812+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:56:08.850+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        m1_0.team_id,
+        m1_0.username 
+    from
+        member m1_0
+2023-01-31T19:56:08.862+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    select
+        t1_0.team_id,
+        t1_0.name 
+    from
+        team t1_0 
+    where
+        t1_0.team_id=?
+2023-01-31T19:56:08.867+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:56:08.868+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    select
+        t1_0.team_id,
+        t1_0.name 
+    from
+        team t1_0 
+    where
+        t1_0.team_id=?
+2023-01-31T19:56:08.869+09:00 DEBUG 20804 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:56:08.880+09:00  INFO 20804 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:56:08.881+09:00  INFO 20804 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:56:08.887+09:00  INFO 20804 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T19:58:08.287+09:00  INFO 12716 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Starting MemberRepositoryTest using Java 17.0.5 with PID 12716 (started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T19:58:08.289+09:00  INFO 12716 --- [main] c.p.j.j.repository.MemberRepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T19:58:08.527+09:00  INFO 12716 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T19:58:08.575+09:00  INFO 12716 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 42 ms. Found 3 JPA repository interfaces.
+2023-01-31T19:58:08.820+09:00  INFO 12716 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T19:58:08.863+09:00  INFO 12716 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T19:58:08.983+09:00  WARN 12716 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T19:58:09.161+09:00  INFO 12716 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T19:58:09.357+09:00  INFO 12716 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37775bb1
+2023-01-31T19:58:09.358+09:00  INFO 12716 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T19:58:09.369+09:00  INFO 12716 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T19:58:09.370+09:00  WARN 12716 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T19:58:09.431+09:00  WARN 12716 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T19:58:10.101+09:00  INFO 12716 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T19:58:10.110+09:00  INFO 12716 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:58:10.336+09:00  WARN 12716 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T19:58:10.642+09:00  INFO 12716 --- [main] c.p.j.j.repository.MemberRepositoryTest  : Started MemberRepositoryTest in 2.639 seconds (process running for 3.327)
+2023-01-31T19:58:10.801+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:58:10.807+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        team
+        (name) 
+    values
+        (?)
+2023-01-31T19:58:10.809+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:58:10.810+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    insert 
+    into
+        member
+        (age, team_id, username) 
+    values
+        (?, ?, ?)
+2023-01-31T19:58:10.857+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.member_id,
+        m1_0.age,
+        t1_0.team_id,
+        t1_0.name,
+        m1_0.username 
+    from
+        member m1_0 
+    left join
+        team t1_0 
+            on t1_0.team_id=m1_0.team_id
+2023-01-31T19:58:10.866+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:58:10.867+09:00 DEBUG 12716 --- [main] org.hibernate.SQL                        : 
+    select
+        m1_0.team_team_id,
+        m1_1.member_id,
+        m1_1.age,
+        m1_1.team_id,
+        m1_1.username 
+    from
+        team_members m1_0 
+    join
+        member m1_1 
+            on m1_1.member_id=m1_0.members_member_id 
+    where
+        m1_0.team_team_id=?
+2023-01-31T19:58:10.879+09:00  INFO 12716 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T19:58:10.880+09:00  INFO 12716 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T19:58:10.884+09:00  INFO 12716 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T20:03:45.560+09:00  INFO 5928 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T20:03:45.564+09:00  INFO 5928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T20:03:45.568+09:00  INFO 5928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T20:03:49.273+09:00  INFO 29196 --- [main] com.practice.jpa.JpaApplication          : Starting JpaApplication using Java 17.0.5 with PID 29196 (C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa\out\production\classes started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T20:03:49.275+09:00  INFO 29196 --- [main] com.practice.jpa.JpaApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T20:03:49.641+09:00  INFO 29196 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T20:03:49.710+09:00  INFO 29196 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 3 JPA repository interfaces.
+2023-01-31T20:03:50.032+09:00  INFO 29196 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 33333 (http)
+2023-01-31T20:03:50.038+09:00  INFO 29196 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-01-31T20:03:50.039+09:00  INFO 29196 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31T20:03:50.097+09:00  INFO 29196 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-01-31T20:03:50.097+09:00  INFO 29196 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 798 ms
+2023-01-31T20:03:50.186+09:00  INFO 29196 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T20:03:50.208+09:00  INFO 29196 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T20:03:50.282+09:00  WARN 29196 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T20:03:50.350+09:00  INFO 29196 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T20:03:50.509+09:00  INFO 29196 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3afca2c
+2023-01-31T20:03:50.513+09:00  INFO 29196 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T20:03:50.530+09:00  INFO 29196 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T20:03:50.530+09:00  WARN 29196 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T20:03:50.572+09:00  WARN 29196 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T20:03:50.680+09:00 ERROR 29196 --- [main] j.LocalContainerEntityManagerFactoryBean : Failed to initialize JPA EntityManagerFactory: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Column 'role' is duplicated in mapping for entity 'com.practice.jpa.Inheritence.joined.User' (use '@Column(insertable=false, updatable=false)' when mapping multiple properties to the same column)
+2023-01-31T20:03:50.681+09:00  WARN 29196 --- [main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Column 'role' is duplicated in mapping for entity 'com.practice.jpa.Inheritence.joined.User' (use '@Column(insertable=false, updatable=false)' when mapping multiple properties to the same column)
+2023-01-31T20:03:50.682+09:00  INFO 29196 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T20:03:50.691+09:00  INFO 29196 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T20:03:50.692+09:00  INFO 29196 --- [main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2023-01-31T20:03:50.698+09:00  INFO 29196 --- [main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2023-01-31T20:03:50.714+09:00 ERROR 29196 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/autoconfigure/orm/jpa/HibernateJpaConfiguration.class]: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Column 'role' is duplicated in mapping for entity 'com.practice.jpa.Inheritence.joined.User' (use '@Column(insertable=false, updatable=false)' when mapping multiple properties to the same column)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1751) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:599) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:521) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1130) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:905) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:584) ~[spring-context-6.0.4.jar:6.0.4]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:730) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:432) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1302) ~[spring-boot-3.0.2.jar:3.0.2]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1291) ~[spring-boot-3.0.2.jar:3.0.2]
+	at com.practice.jpa.JpaApplication.main(JpaApplication.java:10) ~[classes/:na]
+Caused by: jakarta.persistence.PersistenceException: [PersistenceUnit: default] Unable to build Hibernate SessionFactory; nested exception is org.hibernate.MappingException: Column 'role' is duplicated in mapping for entity 'com.practice.jpa.Inheritence.joined.User' (use '@Column(insertable=false, updatable=false)' when mapping multiple properties to the same column)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:421) ~[spring-orm-6.0.4.jar:6.0.4]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.0.4.jar:6.0.4]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:352) ~[spring-orm-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1797) ~[spring-beans-6.0.4.jar:6.0.4]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1747) ~[spring-beans-6.0.4.jar:6.0.4]
+	... 16 common frames omitted
+Caused by: org.hibernate.MappingException: Column 'role' is duplicated in mapping for entity 'com.practice.jpa.Inheritence.joined.User' (use '@Column(insertable=false, updatable=false)' when mapping multiple properties to the same column)
+	at org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:1009) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.mapping.PersistentClass.checkPropertyColumnDuplication(PersistentClass.java:1027) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.mapping.PersistentClass.checkColumnDuplication(PersistentClass.java:1055) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.mapping.PersistentClass.validate(PersistentClass.java:720) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.mapping.RootClass.validate(RootClass.java:283) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.boot.internal.MetadataImpl.validate(MetadataImpl.java:376) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:301) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:415) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1425) ~[hibernate-core-6.1.6.Final.jar:6.1.6.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:66) ~[spring-orm-6.0.4.jar:6.0.4]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:376) ~[spring-orm-6.0.4.jar:6.0.4]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.0.4.jar:6.0.4]
+	... 20 common frames omitted
+
+2023-01-31T20:04:31.562+09:00  INFO 3892 --- [main] com.practice.jpa.JpaApplication          : Starting JpaApplication using Java 17.0.5 with PID 3892 (C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa\out\production\classes started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T20:04:31.564+09:00  INFO 3892 --- [main] com.practice.jpa.JpaApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T20:04:31.858+09:00  INFO 3892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T20:04:31.892+09:00  INFO 3892 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30 ms. Found 3 JPA repository interfaces.
+2023-01-31T20:04:32.122+09:00  INFO 3892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 33333 (http)
+2023-01-31T20:04:32.127+09:00  INFO 3892 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-01-31T20:04:32.127+09:00  INFO 3892 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31T20:04:32.177+09:00  INFO 3892 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-01-31T20:04:32.177+09:00  INFO 3892 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 588 ms
+2023-01-31T20:04:32.245+09:00  INFO 3892 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T20:04:32.265+09:00  INFO 3892 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T20:04:32.325+09:00  WARN 3892 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T20:04:32.381+09:00  INFO 3892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T20:04:32.505+09:00  INFO 3892 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@112c2930
+2023-01-31T20:04:32.507+09:00  INFO 3892 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T20:04:32.514+09:00  INFO 3892 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T20:04:32.514+09:00  WARN 3892 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T20:04:32.552+09:00  WARN 3892 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T20:04:32.962+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table admin (
+       address varchar(255),
+        phone_num varchar(255),
+        id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:32.986+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table book (
+       id bigint not null auto_increment,
+        author varchar(255),
+        isbn varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.003+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table member (
+       member_id bigint not null auto_increment,
+        age integer not null,
+        username varchar(255),
+        team_id bigint,
+        primary key (member_id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.018+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table product (
+       dtype varchar(31) not null,
+        id bigint not null auto_increment,
+        name varchar(255),
+        price integer,
+        actor varchar(255),
+        director varchar(255),
+        singer varchar(255),
+        writer varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.034+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller (
+       money integer,
+        id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.049+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller_item (
+       id bigint not null auto_increment,
+        item_name varchar(255),
+        price integer,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.065+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller_seller_items (
+       seller_id bigint not null,
+        seller_items_id bigint not null
+    ) engine=InnoDB
+2023-01-31T20:04:33.081+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table team (
+       team_id bigint not null auto_increment,
+        name varchar(255),
+        primary key (team_id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.096+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table team_members (
+       team_team_id bigint not null,
+        members_member_id bigint not null
+    ) engine=InnoDB
+2023-01-31T20:04:33.112+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       role varchar(31) not null,
+        id bigint not null auto_increment,
+        name varchar(255) not null,
+        user_role varchar(255) not null,
+        user_id varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:04:33.127+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       drop index UK_htenp2v5x6v4trk5gxik527vi
+2023-01-31T20:04:33.134+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint UK_htenp2v5x6v4trk5gxik527vi unique (seller_items_id)
+2023-01-31T20:04:33.163+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       drop index UK_qakwdx6c7b4hmfj8545dj90fg
+2023-01-31T20:04:33.165+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint UK_qakwdx6c7b4hmfj8545dj90fg unique (members_member_id)
+2023-01-31T20:04:33.193+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table admin 
+       add constraint FK1ja8rua032fgnk9jmq7du3b3a 
+       foreign key (id) 
+       references user (id)
+2023-01-31T20:04:33.232+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table member 
+       add constraint FKcjte2jn9pvo9ud2hyfgwcja0k 
+       foreign key (team_id) 
+       references team (team_id)
+2023-01-31T20:04:33.273+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller 
+       add constraint FKaqjn1ppqads72a0js4g7044eq 
+       foreign key (id) 
+       references user (id)
+2023-01-31T20:04:33.312+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint FKi71gb450lx1j2kuxarkvv1r7k 
+       foreign key (seller_items_id) 
+       references seller_item (id)
+2023-01-31T20:04:33.345+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint FKg86s9bcg5kqyl96eq9v41v3ri 
+       foreign key (seller_id) 
+       references seller (id)
+2023-01-31T20:04:33.386+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FKjn19iu2oeu7hrdwgksruki0mn 
+       foreign key (members_member_id) 
+       references member (member_id)
+2023-01-31T20:04:33.431+09:00 DEBUG 3892 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FK2ym1sj502875uhxqysx3xlmbb 
+       foreign key (team_team_id) 
+       references team (team_id)
+2023-01-31T20:04:33.470+09:00  INFO 3892 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T20:04:33.477+09:00  INFO 3892 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T20:04:33.496+09:00  WARN 3892 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31T20:04:33.556+09:00 DEBUG 3892 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-01-31T20:04:33.587+09:00 DEBUG 3892 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2023-01-31T20:04:33.597+09:00 DEBUG 3892 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-01-31T20:04:33.605+09:00 DEBUG 3892 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-01-31T20:04:33.847+09:00  WARN 3892 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T20:04:33.901+09:00  INFO 3892 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 33333 (http) with context path ''
+2023-01-31T20:04:33.905+09:00  INFO 3892 --- [main] com.practice.jpa.JpaApplication          : Started JpaApplication in 2.678 seconds (process running for 3.1)
+2023-01-31T20:09:38.522+09:00  INFO 3892 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T20:09:38.524+09:00  INFO 3892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-01-31T20:09:38.528+09:00  INFO 3892 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-01-31T20:09:41.285+09:00  INFO 26492 --- [main] com.practice.jpa.JpaApplication          : Starting JpaApplication using Java 17.0.5 with PID 26492 (C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa\out\production\classes started by owner in C:\Users\owner\Desktop\danusys\9. 개인 연습\TDD\3. Jpa)
+2023-01-31T20:09:41.287+09:00  INFO 26492 --- [main] com.practice.jpa.JpaApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-01-31T20:09:42.025+09:00  INFO 26492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-01-31T20:09:42.079+09:00  INFO 26492 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 47 ms. Found 3 JPA repository interfaces.
+2023-01-31T20:09:42.593+09:00  INFO 26492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 33333 (http)
+2023-01-31T20:09:42.599+09:00  INFO 26492 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-01-31T20:09:42.599+09:00  INFO 26492 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-01-31T20:09:42.659+09:00  INFO 26492 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-01-31T20:09:42.660+09:00  INFO 26492 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1284 ms
+2023-01-31T20:09:42.750+09:00  INFO 26492 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-01-31T20:09:42.773+09:00  INFO 26492 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-01-31T20:09:42.850+09:00  WARN 26492 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-01-31T20:09:42.908+09:00  INFO 26492 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-01-31T20:09:43.053+09:00  INFO 26492 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@35fa450f
+2023-01-31T20:09:43.055+09:00  INFO 26492 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-01-31T20:09:43.065+09:00  INFO 26492 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-01-31T20:09:43.065+09:00  WARN 26492 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-01-31T20:09:43.112+09:00  WARN 26492 --- [main] o.h.cfg.annotations.EntityBinder         : HHH000457: Joined inheritance hierarchy [com.practice.jpa.Inheritence.joined.User] defined explicit @DiscriminatorColumn.  Legacy Hibernate behavior was to ignore the @DiscriminatorColumn.  However, as part of issue HHH-6911 we now apply the explicit @DiscriminatorColumn.  If you would prefer the legacy behavior, enable the `hibernate.discriminator.ignore_explicit_for_joined` setting (hibernate.discriminator.ignore_explicit_for_joined=true)
+2023-01-31T20:09:43.630+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table admin (
+       address varchar(255),
+        phone_num varchar(255),
+        id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.654+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table book (
+       id bigint not null auto_increment,
+        author varchar(255),
+        isbn varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.675+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table member (
+       member_id bigint not null auto_increment,
+        age integer not null,
+        username varchar(255),
+        team_id bigint,
+        primary key (member_id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.695+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table product (
+       dtype varchar(31) not null,
+        id bigint not null auto_increment,
+        name varchar(255),
+        price integer,
+        actor varchar(255),
+        director varchar(255),
+        singer varchar(255),
+        writer varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.743+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller (
+       money integer,
+        id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.769+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller_item (
+       id bigint not null auto_increment,
+        item_name varchar(255),
+        price integer,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.790+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table seller_seller_items (
+       seller_id bigint not null,
+        seller_items_id bigint not null
+    ) engine=InnoDB
+2023-01-31T20:09:43.806+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table team (
+       team_id bigint not null auto_increment,
+        name varchar(255),
+        primary key (team_id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.824+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table team_members (
+       team_team_id bigint not null,
+        members_member_id bigint not null
+    ) engine=InnoDB
+2023-01-31T20:09:43.842+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    create table user (
+       role varchar(31) not null,
+        id bigint not null auto_increment,
+        name varchar(255) not null,
+        user_role varchar(255) not null,
+        user_id varchar(255) not null,
+        primary key (id)
+    ) engine=InnoDB
+2023-01-31T20:09:43.864+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       drop index UK_htenp2v5x6v4trk5gxik527vi
+2023-01-31T20:09:43.871+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint UK_htenp2v5x6v4trk5gxik527vi unique (seller_items_id)
+2023-01-31T20:09:43.912+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       drop index UK_qakwdx6c7b4hmfj8545dj90fg
+2023-01-31T20:09:43.913+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint UK_qakwdx6c7b4hmfj8545dj90fg unique (members_member_id)
+2023-01-31T20:09:43.944+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table admin 
+       add constraint FK1ja8rua032fgnk9jmq7du3b3a 
+       foreign key (id) 
+       references user (id)
+2023-01-31T20:09:43.985+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table member 
+       add constraint FKcjte2jn9pvo9ud2hyfgwcja0k 
+       foreign key (team_id) 
+       references team (team_id)
+2023-01-31T20:09:44.031+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller 
+       add constraint FKaqjn1ppqads72a0js4g7044eq 
+       foreign key (id) 
+       references user (id)
+2023-01-31T20:09:44.069+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint FKi71gb450lx1j2kuxarkvv1r7k 
+       foreign key (seller_items_id) 
+       references seller_item (id)
+2023-01-31T20:09:44.101+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table seller_seller_items 
+       add constraint FKg86s9bcg5kqyl96eq9v41v3ri 
+       foreign key (seller_id) 
+       references seller (id)
+2023-01-31T20:09:44.145+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FKjn19iu2oeu7hrdwgksruki0mn 
+       foreign key (members_member_id) 
+       references member (member_id)
+2023-01-31T20:09:44.180+09:00 DEBUG 26492 --- [main] org.hibernate.SQL                        : 
+    
+    alter table team_members 
+       add constraint FK2ym1sj502875uhxqysx3xlmbb 
+       foreign key (team_team_id) 
+       references team (team_id)
+2023-01-31T20:09:44.221+09:00  INFO 26492 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-01-31T20:09:44.226+09:00  INFO 26492 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-01-31T20:09:44.244+09:00  WARN 26492 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-01-31T20:09:44.304+09:00 DEBUG 26492 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-01-31T20:09:44.337+09:00 DEBUG 26492 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 2 mappings in 'requestMappingHandlerMapping'
+2023-01-31T20:09:44.346+09:00 DEBUG 26492 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-01-31T20:09:44.350+09:00 DEBUG 26492 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-01-31T20:09:44.573+09:00  WARN 26492 --- [main] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.Inheritence.repository.joined.SellerRepository
+2023-01-31T20:09:44.623+09:00  INFO 26492 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 33333 (http) with context path ''
+2023-01-31T20:09:44.627+09:00  INFO 26492 --- [main] com.practice.jpa.JpaApplication          : Started JpaApplication in 3.622 seconds (process running for 3.885)

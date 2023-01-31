@@ -20,10 +20,6 @@ import lombok.ToString;
 @DiscriminatorValue("admin")
 public class Admin extends User{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private String phoneNum;
 
     private String address;
