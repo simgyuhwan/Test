@@ -1,0 +1,29 @@
+server:
+  port: 33333
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
+      hibernate:
+        SQL: debug
+  file:
+    name: logs/jpa.log
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpa?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Password!
+
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    generate-ddl: true
+    database: mysql
