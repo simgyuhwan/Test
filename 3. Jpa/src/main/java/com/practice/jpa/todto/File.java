@@ -7,7 +7,6 @@ import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 /**
  * File.java
  * Class 설명을 작성하세요.
