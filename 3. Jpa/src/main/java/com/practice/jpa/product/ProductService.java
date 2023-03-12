@@ -1,5 +1,8 @@
 package com.practice.jpa.product;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProductService {
     private final ProductPort productPort;
 
