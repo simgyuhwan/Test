@@ -27,6 +27,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation group: 'com.h2database', name: 'h2', version: '1.4.200'
 
+	// rest api
+	testImplementation("io.rest-assured:rest-assured:4.4.0") {
+		exclude group: 'org.apache.groovy', module: 'groovy-xml'
+	}
+	implementation 'javax.xml.bind:jaxb-api:2.3.0'
 }
 
 tasks.named('test') {
