@@ -1,225 +1,29 @@
-2023-03-16T23:00:10.175+09:00  INFO 55120 --- [main] c.p.jpa.product.ProductServiceTest       : Starting ProductServiceTest using Java 17.0.6 with PID 55120 (started by gyuhwan in C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa)
-2023-03-16T23:00:10.183+09:00  INFO 55120 --- [main] c.p.jpa.product.ProductServiceTest       : No active profile set, falling back to 1 default profile: "default"
-2023-03-16T23:00:10.434+09:00 DEBUG 55120 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@58783f6c
-2023-03-16T23:00:10.997+09:00  INFO 55120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-16T23:00:11.061+09:00  INFO 55120 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53 ms. Found 1 JPA repository interfaces.
-2023-03-16T23:00:11.535+09:00  INFO 55120 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-16T23:00:11.611+09:00  INFO 55120 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2023-03-16T23:00:11.832+09:00  WARN 55120 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-16T23:00:12.107+09:00  INFO 55120 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-16T23:00:12.601+09:00  INFO 55120 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@278de2b2
-2023-03-16T23:00:12.603+09:00  INFO 55120 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-16T23:00:12.625+09:00  INFO 55120 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2023-03-16T23:00:12.626+09:00  WARN 55120 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-03-16T23:00:13.552+09:00  INFO 55120 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-16T23:00:13.564+09:00  INFO 55120 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:00:14.020+09:00  WARN 55120 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-16T23:00:14.174+09:00 DEBUG 55120 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-16T23:00:14.274+09:00 DEBUG 55120 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 3 mappings in 'requestMappingHandlerMapping'
-2023-03-16T23:00:14.292+09:00 DEBUG 55120 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-16T23:00:14.299+09:00 DEBUG 55120 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-16T23:00:14.404+09:00  INFO 55120 --- [main] c.p.jpa.product.ProductServiceTest       : Started ProductServiceTest in 4.658 seconds (process running for 5.832)
-2023-03-16T23:00:14.640+09:00 DEBUG 55120 --- [SpringApplicationShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@58783f6c, started on Thu Mar 16 23:00:10 KST 2023
-2023-03-16T23:00:14.642+09:00  INFO 55120 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:00:14.644+09:00  INFO 55120 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-16T23:00:14.653+09:00  INFO 55120 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-03-16T23:00:25.171+09:00  INFO 55844 --- [main] c.p.jpa.product.ProductServiceTest       : Starting ProductServiceTest using Java 17.0.6 with PID 55844 (started by gyuhwan in C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa)
-2023-03-16T23:00:25.172+09:00  INFO 55844 --- [main] c.p.jpa.product.ProductServiceTest       : No active profile set, falling back to 1 default profile: "default"
-2023-03-16T23:00:25.401+09:00 DEBUG 55844 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Refreshing org.springframework.web.context.support.GenericWebApplicationContext@62c5bbdc
-2023-03-16T23:00:25.919+09:00  INFO 55844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-16T23:00:25.976+09:00  INFO 55844 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 1 JPA repository interfaces.
-2023-03-16T23:00:26.368+09:00  INFO 55844 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-16T23:00:26.433+09:00  INFO 55844 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2023-03-16T23:00:26.629+09:00  WARN 55844 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-16T23:00:26.888+09:00  INFO 55844 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-16T23:00:27.188+09:00  INFO 55844 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@75d97e18
-2023-03-16T23:00:27.190+09:00  INFO 55844 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-16T23:00:27.209+09:00  INFO 55844 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2023-03-16T23:00:27.210+09:00  WARN 55844 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-03-16T23:00:28.019+09:00  INFO 55844 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-16T23:00:28.029+09:00  INFO 55844 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:00:28.449+09:00  WARN 55844 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-16T23:00:28.592+09:00 DEBUG 55844 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-16T23:00:28.681+09:00 DEBUG 55844 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 3 mappings in 'requestMappingHandlerMapping'
-2023-03-16T23:00:28.700+09:00 DEBUG 55844 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-16T23:00:28.708+09:00 DEBUG 55844 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-16T23:00:28.829+09:00  INFO 55844 --- [main] c.p.jpa.product.ProductServiceTest       : Started ProductServiceTest in 4.024 seconds (process running for 5.099)
-2023-03-16T23:00:29.072+09:00 DEBUG 55844 --- [main] org.hibernate.SQL                        : 
-    insert 
-    into
-        products
-        (discount_policy, name, price) 
-    values
-        (?, ?, ?)
-2023-03-16T23:00:29.168+09:00 DEBUG 55844 --- [main] org.hibernate.SQL                        : 
-    select
-        p1_0.id,
-        p1_0.discount_policy,
-        p1_0.name,
-        p1_0.price 
-    from
-        products p1_0 
-    where
-        p1_0.id=?
-2023-03-16T23:00:29.250+09:00 DEBUG 55844 --- [SpringApplicationShutdownHook] o.s.w.c.s.GenericWebApplicationContext   : Closing org.springframework.web.context.support.GenericWebApplicationContext@62c5bbdc, started on Thu Mar 16 23:00:25 KST 2023
-2023-03-16T23:00:29.252+09:00  INFO 55844 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:00:29.254+09:00  INFO 55844 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-16T23:00:29.262+09:00  INFO 55844 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-03-16T23:14:12.615+09:00  INFO 48936 --- [main] c.practice.jpa.product.ProductApiTest    : Starting ProductApiTest using Java 17.0.6 with PID 48936 (started by gyuhwan in C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa)
-2023-03-16T23:14:12.617+09:00  INFO 48936 --- [main] c.practice.jpa.product.ProductApiTest    : No active profile set, falling back to 1 default profile: "default"
-2023-03-16T23:14:13.348+09:00  INFO 48936 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-16T23:14:13.409+09:00  INFO 48936 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 1 JPA repository interfaces.
-2023-03-16T23:14:14.105+09:00  INFO 48936 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2023-03-16T23:14:14.117+09:00  INFO 48936 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-16T23:14:14.117+09:00  INFO 48936 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-2023-03-16T23:14:14.232+09:00  INFO 48936 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-16T23:14:14.232+09:00  INFO 48936 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1400 ms
-2023-03-16T23:14:14.408+09:00  INFO 48936 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-16T23:14:14.476+09:00  INFO 48936 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2023-03-16T23:14:14.672+09:00  WARN 48936 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-16T23:14:14.817+09:00  INFO 48936 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-16T23:14:15.097+09:00  INFO 48936 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@38ebc866
-2023-03-16T23:14:15.099+09:00  INFO 48936 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-16T23:14:15.117+09:00  INFO 48936 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2023-03-16T23:14:15.117+09:00  WARN 48936 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-03-16T23:14:15.898+09:00  INFO 48936 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-16T23:14:15.908+09:00  INFO 48936 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:14:16.201+09:00  WARN 48936 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-16T23:14:16.357+09:00 DEBUG 48936 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-16T23:14:16.462+09:00 DEBUG 48936 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
-2023-03-16T23:14:16.479+09:00 DEBUG 48936 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-16T23:14:16.488+09:00 DEBUG 48936 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-16T23:14:16.622+09:00  INFO 48936 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 51876 (http) with context path ''
-2023-03-16T23:14:16.631+09:00  INFO 48936 --- [main] c.practice.jpa.product.ProductApiTest    : Started ProductApiTest in 4.386 seconds (process running for 5.445)
-2023-03-16T23:14:17.110+09:00 DEBUG 48936 --- [main] org.hibernate.SQL                        : 
-    
-SET
-    foreign_key_checks = 0
-2023-03-16T23:14:17.114+09:00 DEBUG 48936 --- [main] org.hibernate.SQL                        : 
-    TRUNCATE TABLE products
-2023-03-16T23:14:17.197+09:00 DEBUG 48936 --- [main] org.hibernate.SQL                        : 
-    ALTER TABLE products AUTO_INCREMENT = 1
-2023-03-16T23:14:17.225+09:00 DEBUG 48936 --- [main] org.hibernate.SQL                        : 
-    
-SET
-    foreign_key_checks = 1
-2023-03-16T23:14:18.070+09:00  INFO 48936 --- [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-16T23:14:18.071+09:00  INFO 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-16T23:14:18.071+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2023-03-16T23:14:18.071+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2023-03-16T23:14:18.072+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2023-03-16T23:14:18.072+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@294ebdae
-2023-03-16T23:14:18.073+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@451f3f66
-2023-03-16T23:14:18.073+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2023-03-16T23:14:18.073+09:00  INFO 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-03-16T23:14:18.082+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/products", parameters={}
-2023-03-16T23:14:18.092+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#addProduct(AddProductRequest)
-2023-03-16T23:14:18.149+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, discountPolicy=NONE]]
-2023-03-16T23:14:18.185+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] org.hibernate.SQL                        : 
-    insert 
-    into
-        products
-        (discount_policy, name, price) 
-    values
-        (?, ?, ?)
-2023-03-16T23:14:18.211+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2023-03-16T23:14:18.211+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Nothing to write: null body
-2023-03-16T23:14:18.213+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2023-03-16T23:14:18.302+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/products/1", parameters={}
-2023-03-16T23:14:18.303+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#getProduct(long)
-2023-03-16T23:14:18.307+09:00  WARN 48936 --- [http-nio-auto-1-exec-2] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.product.ProductService
-2023-03-16T23:14:18.347+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] org.hibernate.SQL                        : 
-    select
-        p1_0.id,
-        p1_0.discount_policy,
-        p1_0.name,
-        p1_0.price 
-    from
-        products p1_0 
-    where
-        p1_0.id=?
-2023-03-16T23:14:18.359+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2023-03-16T23:14:18.363+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [GetProductResponse[id=1, name=상품명, price=1000, discountPolicy=NONE]]
-2023-03-16T23:14:18.371+09:00 DEBUG 48936 --- [http-nio-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2023-03-16T23:14:18.482+09:00  INFO 48936 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:14:18.484+09:00  INFO 48936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-16T23:14:18.493+09:00  INFO 48936 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2023-03-16T23:16:42.448+09:00  INFO 33928 --- [main] c.practice.jpa.product.ProductApiTest    : Starting ProductApiTest using Java 17.0.6 with PID 33928 (started by gyuhwan in C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa)
-2023-03-16T23:16:42.450+09:00  INFO 33928 --- [main] c.practice.jpa.product.ProductApiTest    : No active profile set, falling back to 1 default profile: "default"
-2023-03-16T23:16:43.228+09:00  INFO 33928 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2023-03-16T23:16:43.285+09:00  INFO 33928 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49 ms. Found 1 JPA repository interfaces.
-2023-03-16T23:16:43.926+09:00  INFO 33928 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
-2023-03-16T23:16:43.936+09:00  INFO 33928 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2023-03-16T23:16:43.937+09:00  INFO 33928 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-2023-03-16T23:16:44.045+09:00  INFO 33928 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2023-03-16T23:16:44.045+09:00  INFO 33928 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1367 ms
-2023-03-16T23:16:44.219+09:00  INFO 33928 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2023-03-16T23:16:44.284+09:00  INFO 33928 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
-2023-03-16T23:16:44.491+09:00  WARN 33928 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
-2023-03-16T23:16:44.640+09:00  INFO 33928 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2023-03-16T23:16:44.917+09:00  INFO 33928 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6cc90398
-2023-03-16T23:16:44.919+09:00  INFO 33928 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2023-03-16T23:16:44.939+09:00  INFO 33928 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
-2023-03-16T23:16:44.940+09:00  WARN 33928 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
-2023-03-16T23:16:45.757+09:00  INFO 33928 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
-2023-03-16T23:16:45.768+09:00  INFO 33928 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:16:46.058+09:00  WARN 33928 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2023-03-16T23:16:46.194+09:00 DEBUG 33928 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
-2023-03-16T23:16:46.282+09:00 DEBUG 33928 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
-2023-03-16T23:16:46.303+09:00 DEBUG 33928 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
-2023-03-16T23:16:46.313+09:00 DEBUG 33928 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
-2023-03-16T23:16:46.446+09:00  INFO 33928 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 51919 (http) with context path ''
-2023-03-16T23:16:46.455+09:00  INFO 33928 --- [main] c.practice.jpa.product.ProductApiTest    : Started ProductApiTest in 4.382 seconds (process running for 5.414)
-2023-03-16T23:16:46.894+09:00 DEBUG 33928 --- [main] org.hibernate.SQL                        : 
-    
-SET
-    foreign_key_checks = 0
-2023-03-16T23:16:46.898+09:00 DEBUG 33928 --- [main] org.hibernate.SQL                        : 
-    TRUNCATE TABLE products
-2023-03-16T23:16:46.930+09:00 DEBUG 33928 --- [main] org.hibernate.SQL                        : 
-    ALTER TABLE products AUTO_INCREMENT = 1
-2023-03-16T23:16:46.938+09:00 DEBUG 33928 --- [main] org.hibernate.SQL                        : 
-    
-SET
-    foreign_key_checks = 1
-2023-03-16T23:16:47.757+09:00  INFO 33928 --- [http-nio-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2023-03-16T23:16:47.757+09:00  INFO 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2023-03-16T23:16:47.758+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
-2023-03-16T23:16:47.758+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
-2023-03-16T23:16:47.758+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected FixedThemeResolver
-2023-03-16T23:16:47.759+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@294ab038
-2023-03-16T23:16:47.759+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@227c0cf7
-2023-03-16T23:16:47.760+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
-2023-03-16T23:16:47.760+09:00  INFO 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2023-03-16T23:16:47.768+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/products", parameters={}
-2023-03-16T23:16:47.777+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#addProduct(AddProductRequest)
-2023-03-16T23:16:47.828+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, discountPolicy=NONE]]
-2023-03-16T23:16:47.860+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] org.hibernate.SQL                        : 
-    insert 
-    into
-        products
-        (discount_policy, name, price) 
-    values
-        (?, ?, ?)
-2023-03-16T23:16:47.884+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2023-03-16T23:16:47.884+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Nothing to write: null body
-2023-03-16T23:16:47.886+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 201 CREATED
-2023-03-16T23:16:47.972+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : GET "/products/1", parameters={}
-2023-03-16T23:16:47.972+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#getProduct(long)
-2023-03-16T23:16:47.977+09:00  WARN 33928 --- [http-nio-auto-1-exec-2] ocalVariableTableParameterNameDiscoverer : Using deprecated '-debug' fallback for parameter name resolution. Compile the affected code with '-parameters' instead or avoid its introspection: com.practice.jpa.product.ProductService
-2023-03-16T23:16:48.014+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] org.hibernate.SQL                        : 
-    select
-        p1_0.id,
-        p1_0.discount_policy,
-        p1_0.name,
-        p1_0.price 
-    from
-        products p1_0 
-    where
-        p1_0.id=?
-2023-03-16T23:16:48.026+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2023-03-16T23:16:48.029+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [GetProductResponse[id=1, name=상품명, price=1000, discountPolicy=NONE]]
-2023-03-16T23:16:48.037+09:00 DEBUG 33928 --- [http-nio-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
-2023-03-16T23:16:48.576+09:00  INFO 33928 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
-2023-03-16T23:16:48.577+09:00  INFO 33928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2023-03-16T23:16:48.583+09:00  INFO 33928 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-04-17T22:01:46.521+09:00  INFO 12508 --- [main] com.practice.jpa.JpaApplication          : Starting JpaApplication using Java 17.0.6 with PID 12508 (C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa\out\production\classes started by gyuhwan in C:\Users\gyuhwan\Desktop\TDD\TDD\3. Jpa)
+2023-04-17T22:01:46.528+09:00  INFO 12508 --- [main] com.practice.jpa.JpaApplication          : No active profile set, falling back to 1 default profile: "default"
+2023-04-17T22:01:47.040+09:00  INFO 12508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-04-17T22:01:47.084+09:00  INFO 12508 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 37 ms. Found 1 JPA repository interfaces.
+2023-04-17T22:01:47.460+09:00  INFO 12508 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 33333 (http)
+2023-04-17T22:01:47.467+09:00  INFO 12508 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-04-17T22:01:47.468+09:00  INFO 12508 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+2023-04-17T22:01:47.547+09:00  INFO 12508 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-04-17T22:01:47.547+09:00  INFO 12508 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 981 ms
+2023-04-17T22:01:47.661+09:00  INFO 12508 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-04-17T22:01:47.697+09:00  INFO 12508 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2023-04-17T22:01:47.813+09:00  WARN 12508 --- [main] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2023-04-17T22:01:47.909+09:00  INFO 12508 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-04-17T22:01:48.205+09:00  INFO 12508 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@41a16eb3
+2023-04-17T22:01:48.208+09:00  INFO 12508 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-04-17T22:01:48.220+09:00  INFO 12508 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQL57Dialect
+2023-04-17T22:01:48.221+09:00  WARN 12508 --- [main] org.hibernate.orm.deprecation            : HHH90000026: MySQL57Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2023-04-17T22:01:48.865+09:00  INFO 12508 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-04-17T22:01:48.873+09:00  INFO 12508 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-04-17T22:01:49.088+09:00  WARN 12508 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-04-17T22:01:49.174+09:00 DEBUG 12508 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2023-04-17T22:01:49.227+09:00 DEBUG 12508 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 4 mappings in 'requestMappingHandlerMapping'
+2023-04-17T22:01:49.242+09:00 DEBUG 12508 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2023-04-17T22:01:49.250+09:00 DEBUG 12508 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2023-04-17T22:01:49.341+09:00  INFO 12508 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 33333 (http) with context path ''
+2023-04-17T22:01:49.347+09:00  INFO 12508 --- [main] com.practice.jpa.JpaApplication          : Started JpaApplication in 3.231 seconds (process running for 3.975)
+2023-04-17T22:01:52.364+09:00  INFO 12508 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-04-17T22:01:52.365+09:00  INFO 12508 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-04-17T22:01:52.372+09:00  INFO 12508 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
