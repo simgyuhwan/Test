@@ -1,23 +1,18 @@
 package com.practice.jpa.reservation;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class DiscountPolicy {
-	private List<DiscountCondition> conditions = new ArrayList<>();
-
-	public DiscountPolicy(List<DiscountCondition> conditions) {
-		this.conditions = conditions;
-	}
-
-	public Money calculateDiscountAmount(Screening screening) {
-		for (DiscountCondition each : conditions) {
-			if(each.isSatisfiedBy(screening)) {
-				return getDiscountAmount(screening);
-			}
-		}
-		return Money.ZERO;
-	}
-
-	abstract protected Money getDiscountAmount(Screening screening);
+/**
+ * DiscountPolicy.java
+ * 할인 정책
+ *
+ * @author sgh
+ * @since 2023.06.05
+ */
+public interface DiscountPolicy {
+	/**
+	 * 할인 금액 계산
+	 *
+	 * @param screening 상영 영화
+	 * @return 할인 금액
+	 */
+	Money calculateDiscountAmount(Screening screening);
 }

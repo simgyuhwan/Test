@@ -47,7 +47,7 @@ SET
 2023-04-26T23:00:03.669+09:00  INFO 2884 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
 2023-04-26T23:00:03.679+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/products", parameters={}
 2023-04-26T23:00:03.688+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#addProduct(AddProductRequest)
-2023-04-26T23:00:03.739+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, discountPolicy=NONE]]
+2023-04-26T23:00:03.739+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-1] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, defaultDiscountPolicy=NONE]]
 2023-04-26T23:00:03.773+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-1] org.hibernate.SQL                        : 
     insert 
     into
@@ -72,7 +72,7 @@ SET
     foreign_key_checks = 1
 2023-04-26T23:00:03.963+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-2] o.s.web.servlet.DispatcherServlet        : POST "/products", parameters={}
 2023-04-26T23:00:03.964+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-2] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.practice.jpa.product.ProductService#addProduct(AddProductRequest)
-2023-04-26T23:00:03.965+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, discountPolicy=NONE]]
+2023-04-26T23:00:03.965+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-2] m.m.a.RequestResponseBodyMethodProcessor : Read "application/json;charset=UTF-8" to [AddProductRequest[name=상품명, price=1000, defaultDiscountPolicy=NONE]]
 2023-04-26T23:00:03.967+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-2] org.hibernate.SQL                        : 
     insert 
     into
@@ -97,7 +97,7 @@ SET
     where
         p1_0.id=?
 2023-04-26T23:00:04.063+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
-2023-04-26T23:00:04.066+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [GetProductResponse[id=1, name=상품명, price=1000, discountPolicy=NONE]]
+2023-04-26T23:00:04.066+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-4] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [GetProductResponse[id=1, name=상품명, price=1000, defaultDiscountPolicy=NONE]]
 2023-04-26T23:00:04.073+09:00 DEBUG 2884 --- [http-nio-auto-1-exec-4] o.s.web.servlet.DispatcherServlet        : Completed 200 OK
 2023-04-26T23:00:04.583+09:00  INFO 2884 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-04-26T23:00:04.585+09:00  INFO 2884 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...

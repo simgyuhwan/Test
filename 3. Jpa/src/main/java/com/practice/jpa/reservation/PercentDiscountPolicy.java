@@ -2,7 +2,7 @@ package com.practice.jpa.reservation;
 
 import java.util.List;
 
-public class PercentDiscountPolicy extends DiscountPolicy{
+public class PercentDiscountPolicy extends DefaultDiscountPolicy {
 	private double percent;
 
 	public PercentDiscountPolicy(double percent, List<DiscountCondition> conditionList) {
