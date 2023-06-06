@@ -1,6 +1,9 @@
 package com.practice.jpa.test;
 
+import static java.util.Comparator.*;
 import static org.assertj.core.api.Assertions.*;
+
+import java.util.List;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -8,6 +11,8 @@ import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
 import net.jqwik.api.Provide;
 import net.jqwik.api.constraints.FloatRange;
+import net.jqwik.api.constraints.IntRange;
+import net.jqwik.api.constraints.Size;
 
 class PassingGradeTest {
 
@@ -61,4 +66,52 @@ class PassingGradeTest {
 			Arbitraries.floats().greaterThan(10f)
 		);
 	}
+
+	/**
+	 * PassingGrade.unique 함수는 배열의 중복 값을 제거하고
+	 * 오름차순으로 바꿔준다. 이러한 속성을 확인하는 테스트
+	 *
+	 */
+	@Property
+	void unique(
+		@ForAll
+		@Size(value = 100)
+		List<@IntRange(min = 1, max = 20) Integer>
+		numbers
+	) {
+		int[] doubles = convertListToArray(numbers);
+		int[] result = PassingGrade.unique(doubles);
+
+		assertThat(result)
+			.contains(doubles)
+			.doesNotHaveDuplicates()
+			.isSortedAccordingTo(reverseOrder());
+	}
+
+	private int[] convertListToArray(List<Integer> numbers) {
+		return numbers
+			.stream()
+			.mapToInt(x -> x)
+			.toArray();
+	}
+
+	@Property
+	void indexOfShouldFindFirstValue(
+		@ForAll
+		@Size(value = 100) List<@IntRange(min = -1000, max = 1000) Integer> numbers,
+		@ForAll
+		@IntRange(min = 1001, max = 2000) int value,
+		@ForAll
+		@IntRange(max = 99) int indexToAddElement,
+		@ForAll
+		@IntRange(max = 99) int startIndex) {
+
+		numbers.add(indexToAddElement, value);
+		int[] array = convertListToArray(numbers);
+
+		int expectedIndex = indexToAddElement >= startIndex ? indexToAddElement : -1;
+
+		assertThat(ArrayUtils.indexOf(array, value, startIndex)).isEqualTo(expectedIndex);
+	}
+
 }
