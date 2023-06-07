@@ -10,6 +10,7 @@ public class Basket {
 	private BigDecimal totalValue = BigDecimal.ZERO;
 	private Map<Product, Integer> basket = new HashMap<>();
 
+
 	public void add(Product product, int qtyToAdd) {
 		assert product != null : "Product is required";
 		assert qtyToAdd > 0 : "Quantity has to be greater than zero";
