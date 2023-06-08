@@ -46,18 +46,6 @@ public class DatabaseCleanup implements InitializingBean {
         return null != e.getJavaType().getAnnotation(Table.class);
     }
 
-//    @Transactional
-//    public void execute() {
-//        entityManager.flush();
-//        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY FALSE").executeUpdate();
-//
-//        for(final String tableName : tableNames) {
-//            entityManager.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
-//            entityManager.createNativeQuery("ALTER TABLE " + tableName + " ALTER COLUMN ID RESTART WITH 1").executeUpdate();
-//        }
-//
-//        entityManager.createNativeQuery("SET REFERENTIAL_INTEGRITY TRUE").executeUpdate();
-//    }
 
     /**
      * MySQL 버전
