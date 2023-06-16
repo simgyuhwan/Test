@@ -25,6 +25,7 @@ public class ProductService {
     @GetMapping("/{productId}")
     public ResponseEntity<GetProductResponse> getProduct(@PathVariable final long productId) {
         Product product = productPort.getProduct(productId);
+
         GetProductResponse response = new GetProductResponse(
                 product.getId(),
                 product.getName(),
