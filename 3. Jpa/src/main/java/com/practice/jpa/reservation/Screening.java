@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
  * 영화 이름
  * 순서
  * 시간
- * 
+ *
  */
 public class Screening {
 	private Movie movie;
