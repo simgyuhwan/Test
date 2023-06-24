@@ -6,4 +6,5 @@ public class InvoiceFilter {
 	public List<Invoice> lowValueInvoices() {
 		return null;
 	}
+
 }
