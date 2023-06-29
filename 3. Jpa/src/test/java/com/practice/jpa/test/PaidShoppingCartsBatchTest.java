@@ -46,7 +46,7 @@ class PaidShoppingCartsBatchTest {
  	 */
 	@Test
 	void theWholeProcessHappens() {
-		ShoppingCart someCart = new ShoppingCart();
+		ShoppingCart someCart = new ShoppingCart(100);
 
 		assertThat(someCart.isReadyForDelivery()).isFalse();
 

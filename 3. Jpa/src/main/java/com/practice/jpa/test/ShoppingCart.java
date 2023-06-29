@@ -5,6 +5,11 @@ import java.util.Calendar;
 
 public class ShoppingCart {
 	private boolean readyForDelivery = false;
+	private double value;
+
+	public ShoppingCart(double value) {
+		this.value = value;
+	}
 
 	public void markAsReadyForDelivery(LocalDate estimatedDayOfDelivery) {
 
@@ -21,5 +26,9 @@ public class ShoppingCart {
 	 */
 	public boolean isReadyForDelivery() {
 		return readyForDelivery;
+	}
+
+	public double getValue() {
+		return value;
 	}
 }
