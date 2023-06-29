@@ -1,14 +1,12 @@
 package com.practice.jpa.test;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -21,16 +19,10 @@ class InstallmentGeneratorTest {
 	@Test
 	void checkInstallments() {
 		InstallmentGenerator generator = new InstallmentGenerator(repository);
-
 		ShoppingCart cart = new ShoppingCart(100.0);
 
-		// void 메서드일 때
-		generator.generateInstallments(cart, 10);
-
-		// Captor를 사용해서 void 중간에 사용된 인스턴스를 가져온다.
-		ArgumentCaptor<Installment> captor = ArgumentCaptor.forClass(Installment.class);
-		verify(repository, times(10)).persist(captor.capture());
-		List<Installment> allInstallments = captor.getAllValues();
+		// 반환값을 변경
+		List<Installment> allInstallments = generator.generateInstallments(cart, 10);
 
 		// 금액이 10 분할 되어있는지 확인
 		assertThat(allInstallments).hasSize(10).allMatch(i -> i.getValue() == 10);

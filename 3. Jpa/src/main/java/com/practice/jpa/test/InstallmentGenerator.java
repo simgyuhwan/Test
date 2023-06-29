@@ -1,6 +1,8 @@
 package com.practice.jpa.test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InstallmentGenerator {
 	private InstallmentRepository repository;
@@ -12,7 +14,8 @@ public class InstallmentGenerator {
 	/**
 	 * cart에는 금액이 지정되어 있고 numberOfInstallments 는 할부개월이 정의되어 있다.
 	 */
-	public void generateInstallments(ShoppingCart cart, int numberOfInstallments) {
+	public List<Installment> generateInstallments(ShoppingCart cart, int numberOfInstallments) {
+		List<Installment> generatedInstallments = new ArrayList<>();
 		// 현재일 기준
 		LocalDate nextInstallmentDueDate = LocalDate.now();
 
@@ -26,6 +29,10 @@ public class InstallmentGenerator {
 			// 할부 금액과 납부일 저장
 			Installment newInstallment = new Installment(nextInstallmentDueDate, amountPerInstallment);
 			repository.persist(newInstallment);
+
+			generatedInstallments.add(newInstallment);
 		}
+
+		return generatedInstallments;
 	}
 }
