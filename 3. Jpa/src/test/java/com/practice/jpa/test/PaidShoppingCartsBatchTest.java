@@ -1,10 +1,13 @@
 package com.practice.jpa.test;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.List;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -41,13 +44,13 @@ class PaidShoppingCartsBatchTest {
 	 * 	ShoppingCart 는 Entity 이기 때문에 모의할 필요가 없다. 단언을 위해 스파이로 만든다.
 	 * 	엔티티가 복잡하지 않다면 모의하지 말자.
  	 */
-	@Spy
-	ShoppingCart someCart;
-
 	@Test
 	void theWholeProcessHappens() {
-		LocalDate someDate = LocalDate.now();
+		ShoppingCart someCart = new ShoppingCart();
 
+		assertThat(someCart.isReadyForDelivery()).isFalse();
+
+		Calendar someDate = Calendar.getInstance();
 		when(db.cartsPaidToday()).thenReturn(List.of(someCart));
 		when(deliveryCenter.deliver(someCart)).thenReturn(someDate);
 
@@ -58,6 +61,8 @@ class PaidShoppingCartsBatchTest {
 		verify(notifier).sendEstimatedDeliveryNotification(someCart);
 		verify(db).persist(someCart);
 		verify(sap).cartReadyForDelivery(someCart);
-		verify(someCart).markAsReadyForDelivery(someDate);
+
+		// 기존 Spy로 사용하던 someCart를 실제 객체로 만든 다음 객체 상태를 확인하는 메서드를 추가한다.
+		assertThat(someCart.isReadyForDelivery()).isTrue();
 	}
 }
