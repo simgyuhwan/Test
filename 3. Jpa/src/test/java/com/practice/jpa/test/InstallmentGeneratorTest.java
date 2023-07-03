@@ -12,10 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class InstallmentGeneratorTest {
-
 	@Mock
 	private InstallmentRepository repository;
-
 	@Test
 	void checkInstallments() {
 		InstallmentGenerator generator = new InstallmentGenerator(repository);
