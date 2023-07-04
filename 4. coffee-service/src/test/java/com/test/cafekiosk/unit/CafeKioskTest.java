@@ -28,6 +28,26 @@ class CafeKioskTest {
 	}
 
 	@Test
+	void addSeveralBeverages() {
+		CafeKiosk cafeKiosk = new CafeKiosk();
+		Americano americano = new Americano();
+
+		cafeKiosk.add(americano, 2);
+
+		assertThat(cafeKiosk.getBeverages().get(0)).isEqualTo(americano);
+		assertThat(cafeKiosk.getBeverages().get(1)).isEqualTo(americano);
+	}
+
+	@Test
+	void addZeroBeverages() {
+		CafeKiosk cafeKiosk = new CafeKiosk();
+		Americano americano = new Americano();
+
+		assertThatThrownBy(() -> cafeKiosk.add(americano, 0)).isInstanceOf(IllegalArgumentException.class)
+			.hasMessage("음료는 1잔 이상 주문하실 수 있습니다.");
+	}
+
+	@Test
 	void remove() {
 		CafeKiosk cafeKiosk = new CafeKiosk();
 		Americano americano = new Americano();
