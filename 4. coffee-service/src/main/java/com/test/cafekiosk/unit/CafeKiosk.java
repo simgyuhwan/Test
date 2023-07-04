@@ -30,10 +30,6 @@ public class CafeKiosk {
 		beverages.add(beverage);
 	}
 
-	public int calculateTotalPrice() {
-		return beverages.stream().mapToInt(Beverage::getPrice).sum();
-	}
-
 	public void remove(Beverage beverage) {
 		beverages.remove(beverage);
 	}
@@ -61,5 +57,9 @@ public class CafeKiosk {
 		}
 
 		return new Order(currentDateTime, beverages);
+	}
+
+	public int calculateTotalPrice() {
+		return beverages.stream().mapToInt(Beverage::getPrice).sum();
 	}
 }
