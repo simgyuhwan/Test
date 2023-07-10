@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.test.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
 import com.test.cafekiosk.spring.api.service.product.response.ProductResponse;
 import com.test.cafekiosk.spring.domain.product.Product;
 import com.test.cafekiosk.spring.domain.product.ProductRepository;
@@ -25,5 +26,26 @@ public class ProductService {
 		return products.stream()
 			.map(ProductResponse::of)
 			.collect(toList());
+	}
+
+	public ProductResponse createProduct(ProductCreateRequest request) {
+		String nextProductNumber = createNextProductNumber();
+
+		Product product = request.toEntity(nextProductNumber);
+		Product savedProduct = productRepository.save(product);
+
+		return ProductResponse.of(savedProduct);
+	}
+
+	private String createNextProductNumber() {
+		String latestProductNumber = productRepository.findLatestProductNumber();
+		if (latestProductNumber == null) {
+			return "001";
+		}
+
+		int latestProductNumberInt = Integer.parseInt(latestProductNumber);
+		int nextProductNumberInt = latestProductNumberInt + 1;
+
+		return String.format("%03d", nextProductNumberInt);
 	}
 }
