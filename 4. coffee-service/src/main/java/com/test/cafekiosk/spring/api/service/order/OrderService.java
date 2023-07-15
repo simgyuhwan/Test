@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.test.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
+import com.test.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.test.cafekiosk.spring.api.service.order.response.OrderResponse;
 import com.test.cafekiosk.spring.domain.order.Order;
 import com.test.cafekiosk.spring.domain.order.OrderRepository;
@@ -35,7 +35,7 @@ public class OrderService {
 	 * optimistic lock / pessimistic lock
 	 */
 	@Transactional
-	public OrderResponse createOrder(OrderCreateRequest request, LocalDateTime registeredDateTime) {
+	public OrderResponse createOrder(OrderCreateServiceRequest request, LocalDateTime registeredDateTime) {
 		List<String> productNumbers = request.getProductNumbers();
 		List<Product> products = findProductsBy(productNumbers);
 

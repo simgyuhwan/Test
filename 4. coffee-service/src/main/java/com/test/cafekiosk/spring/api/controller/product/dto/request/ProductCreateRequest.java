@@ -4,6 +4,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.test.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import com.test.cafekiosk.spring.domain.product.Product;
 import com.test.cafekiosk.spring.domain.product.ProductSellingStatus;
 import com.test.cafekiosk.spring.domain.product.ProductType;
@@ -48,6 +49,15 @@ public class ProductCreateRequest {
 			.type(type)
 			.sellingStatus(sellingStatus)
 			.name(name)
+			.price(price)
+			.build();
+	}
+
+	public ProductCreateServiceRequest toServiceRequest() {
+		return ProductCreateServiceRequest.builder()
+			.name(name)
+			.type(type)
+			.sellingStatus(sellingStatus)
 			.price(price)
 			.build();
 	}

@@ -7,7 +7,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.test.cafekiosk.spring.api.controller.product.dto.request.ProductCreateRequest;
+import com.test.cafekiosk.spring.api.service.product.request.ProductCreateServiceRequest;
 import com.test.cafekiosk.spring.api.service.product.response.ProductResponse;
 import com.test.cafekiosk.spring.domain.product.Product;
 import com.test.cafekiosk.spring.domain.product.ProductRepository;
@@ -31,7 +31,7 @@ public class ProductService {
 	}
 
 	@Transactional
-	public ProductResponse createProduct(ProductCreateRequest request) {
+	public ProductResponse createProduct(ProductCreateServiceRequest request) {
 		String nextProductNumber = createNextProductNumber();
 
 		Product product = request.toEntity(nextProductNumber);
