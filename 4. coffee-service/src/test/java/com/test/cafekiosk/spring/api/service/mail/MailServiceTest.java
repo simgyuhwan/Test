@@ -3,7 +3,7 @@ package com.test.cafekiosk.spring.api.service.mail;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.doReturn;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -15,14 +15,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class MailServiceTest {
 
-    //    @Mock
-    @Spy
+    @Mock
+//    @Spy
     private MailSendClient mailSendClient;
 
     @Mock
@@ -35,16 +34,17 @@ class MailServiceTest {
     @Test
     void sendMail() {
         // given
-
         // mock
 //        when(mailSendClient.sendEmail(anyString(), anyString(), anyString(),
 //            anyString()))
 //            .thenReturn(true);
+        given(mailSendClient.sendEmail(anyString(), anyString(), anyString(),
+            anyString())).willReturn(true);
 
         // spy
-        doReturn(true)
-            .when(mailSendClient)
-            .sendEmail(anyString(), anyString(), anyString(), anyString());
+//        doReturn(true)
+//            .when(mailSendClient)
+//            .sendEmail(anyString(), anyString(), anyString(), anyString());
 
         // when
         boolean result = mailService.sendMail("", "", "", "");
