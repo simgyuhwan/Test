@@ -8,7 +8,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
-import com.test.cafekiosk.spring.api.controller.order.request.OrderCreateRequest;
 import com.test.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.test.cafekiosk.spring.api.service.order.response.OrderResponse;
 import com.test.cafekiosk.spring.domain.order.OrderRepository;
@@ -177,13 +176,13 @@ class OrderServiceTest {
         Stock stock2 = Stock.create("002", 1);
         stockRepository.saveAll(List.of(stock1, stock2));
 
-        OrderCreateRequest request = OrderCreateRequest.builder()
+        OrderCreateServiceRequest request = OrderCreateServiceRequest.builder()
             .productNumbers(List.of("001", "001", "002", "003"))
             .build();
 
         // when, then
         assertThatThrownBy(
-            () -> orderService.createOrder(request.toServiceRequest(), registeredDateTime))
+            () -> orderService.createOrder(request, registeredDateTime))
             .isInstanceOf(IllegalArgumentException.class)
             .hasMessage("재고가 부족한 상품이 있습니다.");
     }
