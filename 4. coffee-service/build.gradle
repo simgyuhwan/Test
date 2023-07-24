@@ -38,6 +38,10 @@ dependencies {
 
     // test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // mockito
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.4.0'
+
 }
 
 tasks.named('test') {

@@ -2,12 +2,16 @@ package com.test.cafekiosk.spring.api.service.order;
 
 import static com.test.cafekiosk.spring.domain.product.ProductType.HANDMADE;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+import com.test.cafekiosk.spring.client.mail.MailSendClient;
 import com.test.cafekiosk.spring.domain.history.mail.MailSendHistory;
 import com.test.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
 import com.test.cafekiosk.spring.domain.order.Order;
 import com.test.cafekiosk.spring.domain.order.OrderRepository;
 import com.test.cafekiosk.spring.domain.order.OrderStatus;
+import com.test.cafekiosk.spring.domain.orderoproduct.OrderProductRepository;
 import com.test.cafekiosk.spring.domain.product.Product;
 import com.test.cafekiosk.spring.domain.product.ProductRepository;
 import com.test.cafekiosk.spring.domain.product.ProductSellingStatus;
@@ -20,6 +24,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 @SpringBootTest
 class OrderStatisticsServiceTest {
@@ -34,12 +39,20 @@ class OrderStatisticsServiceTest {
     private ProductRepository productRepository;
 
     @Autowired
+    private OrderProductRepository orderProductRepository;
+
+    @Autowired
     private MailSendHistoryRepository mailSendHistoryRepository;
+
+    @MockBean
+    private MailSendClient mailSendClient;
 
     @AfterEach
     void tearDown() {
+        orderProductRepository.deleteAllInBatch();
         orderRepository.deleteAllInBatch();
         productRepository.deleteAllInBatch();
+        mailSendHistoryRepository.deleteAllInBatch();
     }
 
     @DisplayName("결제완료 주문들을 조회하여 매출 통계 메일을 전송한다.")
@@ -61,6 +74,11 @@ class OrderStatisticsServiceTest {
             products);
         Order order4 = createPaymentCompletedOrder(LocalDateTime.of(2023, 3, 6, 0, 0), products);
 
+        // stubbing
+        when(mailSendClient.sendEmail(any(String.class), any(String.class), any(String.class),
+            any(String.class)))
+            .thenReturn(true);
+
         // when
         boolean result = orderStatisticsService.sendOrderStatisticsMail(LocalDate.of(2023, 3, 5),
             "test@test.com");
@@ -77,7 +95,7 @@ class OrderStatisticsServiceTest {
     private Order createPaymentCompletedOrder(LocalDateTime now, List<Product> products) {
         Order order = Order.builder()
             .products(products)
-            .orderStatus(OrderStatus.COMPLETED)
+            .orderStatus(OrderStatus.PAYMENT_COMPLETE)
             .registeredDateTime(now)
             .build();
         return orderRepository.save(order);
