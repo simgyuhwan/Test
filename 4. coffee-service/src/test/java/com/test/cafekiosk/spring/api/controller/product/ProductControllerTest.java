@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.List;
 
+import com.test.cafekiosk.spring.ControllerTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +23,7 @@ import com.test.cafekiosk.spring.api.service.product.response.ProductResponse;
 import com.test.cafekiosk.spring.domain.product.ProductSellingStatus;
 import com.test.cafekiosk.spring.domain.product.ProductType;
 
-@WebMvcTest(controllers = ProductController.class)
-class ProductControllerTest {
-
-	@Autowired
-	private ObjectMapper objectMapper;
-
-	@Autowired
-	private MockMvc mockMvc;
-
-	/**
-	 * Controller 에 ProductService MockBean 객체를 주입해줌
-	 */
-	@MockBean
-	private ProductService productService;
+class ProductControllerTest extends ControllerTestSupport {
 
 	@DisplayName("신규 상품을 등록한다.")
 	@Test
