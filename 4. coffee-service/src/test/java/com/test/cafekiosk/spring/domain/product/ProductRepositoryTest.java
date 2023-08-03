@@ -6,15 +6,24 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.List;
 
+import com.test.cafekiosk.spring.IntegrationTestSupport;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@ActiveProfiles("test")
-@DataJpaTest
-class ProductRepositoryTest {
+import javax.transaction.Transactional;
+
+/**
+ * 반드시 SpringBootTest 를 할 필요도 없고 DataJpaTest 를 할 필요가 없다.
+ * 단순히 Jpa 에 관해서 테스트를 하고 싶으면 DataJpaTest 만 사용해도 되지만 테스트 환경이 하나 더 생성되기 때문에
+ * SpringBootTest 로 통합해도 된다. 선택의 문제이다.
+ */
+//@ActiveProfiles("test")
+//@DataJpaTest
+@Transactional
+class ProductRepositoryTest extends IntegrationTestSupport {
 
 	@Autowired
 	private ProductRepository productRepository;

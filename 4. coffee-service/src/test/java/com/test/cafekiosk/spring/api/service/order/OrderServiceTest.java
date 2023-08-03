@@ -8,6 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.Assertions.tuple;
 
+import com.test.cafekiosk.spring.IntegrationTestSupport;
 import com.test.cafekiosk.spring.api.service.order.request.OrderCreateServiceRequest;
 import com.test.cafekiosk.spring.api.service.order.response.OrderResponse;
 import com.test.cafekiosk.spring.domain.order.OrderRepository;
@@ -26,9 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-@ActiveProfiles("test")
-class OrderServiceTest {
+class OrderServiceTest extends IntegrationTestSupport {
 
     @Autowired
     private OrderService orderService;
