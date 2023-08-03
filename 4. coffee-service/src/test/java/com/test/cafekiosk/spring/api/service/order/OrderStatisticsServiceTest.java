@@ -6,7 +6,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import com.test.cafekiosk.spring.IntegrationTestSupport;
-import com.test.cafekiosk.spring.client.mail.MailSendClient;
 import com.test.cafekiosk.spring.domain.history.mail.MailSendHistory;
 import com.test.cafekiosk.spring.domain.history.mail.MailSendHistoryRepository;
 import com.test.cafekiosk.spring.domain.order.Order;
@@ -24,8 +23,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 class OrderStatisticsServiceTest extends IntegrationTestSupport {
 
