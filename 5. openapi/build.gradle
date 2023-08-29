@@ -33,7 +33,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-	testImplementation('com.epages:restdocs-api-spec-mockmvc:0.18.2')
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.18.2'
 }
 
 tasks.named('test') {
