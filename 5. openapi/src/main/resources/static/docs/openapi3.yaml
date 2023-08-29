@@ -1,0 +1,45 @@
+openapi: 3.0.1
+info:
+  title: First Open API
+  description: Open API Description
+  version: 0.1.0
+servers:
+- url: https://localhost:8080
+tags: []
+paths:
+  /items:
+    get:
+      tags:
+      - 테스트
+      summary: Get Item Test
+      description: 아이템이 오는지 확인한다.
+      operationId: item-get
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MainResponse.Get'
+              examples:
+                item-get:
+                  value: "{\r\n  \"id\" : 1,\r\n  \"name\" : \"쌍쌍바\",\r\n  \"price\"\
+                    \ : 1000,\r\n  \"quantity\" : 50\r\n}"
+components:
+  schemas:
+    MainResponse.Get:
+      title: MainResponse.Get
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: 수량
+        price:
+          type: number
+          description: 가격
+        name:
+          type: string
+          description: 이름
+        id:
+          type: number
+          description: 아이디
