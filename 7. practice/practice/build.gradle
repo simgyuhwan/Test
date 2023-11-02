@@ -10,6 +10,9 @@ version = '0.0.1-SNAPSHOT'
 java {
     sourceCompatibility = '17'
 }
+ext {
+    set('testcontainersVersion', "1.18.0")
+}
 
 configurations {
     compileOnly {
@@ -30,6 +33,16 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.1.5'
+
+    // test containers
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation "org.testcontainers:mysql:1.19.1"
+
+    // mysql
+    implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.33'
+
+    // rest assured
+    testImplementation group: 'io.rest-assured', name: 'rest-assured', version: '5.3.2'
 
 }
 
